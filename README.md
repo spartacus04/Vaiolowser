@@ -42,6 +42,7 @@ Il bot è basato su  https://github.com/galnir/Master-Bot
   - insult: Genera un insulto a caso
   - meme: Invia un meme a caso
   - motivation: Invia una frase motivante
+  - proverbi: invia un proverbio italiano
   - random <minimo> <massimo>: Sceglie un numero a caso tra quelli dati
   - reddit <subreddit> <sort>: Invia 10 post da un subreddit
   - say <testo>: Ripete il testo dato
