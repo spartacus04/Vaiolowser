@@ -1,5 +1,5 @@
 {
-  "name": "malario",
+  "name": "vaiolowser",
   "version": "1.0.0",
   "description": "Un bot autistico",
   "main": "index.js",
@@ -39,6 +39,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/malario.git"
+    "url": "https://git.heroku.com/vaiolowser.git"
   }
 }
