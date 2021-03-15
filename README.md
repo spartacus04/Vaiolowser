@@ -1,5 +1,5 @@
 # Vaiolowser
-![Malario](https://i.pinimg.com/originals/08/cf/f4/08cff4f168d979d2f6cd676f7cc387ed.jpg)
+![Vaiolowser](https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/icon.ico)
 
 
 Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molte cose tra le quali
