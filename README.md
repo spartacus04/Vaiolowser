@@ -16,9 +16,9 @@ Il bot è basato su  https://github.com/galnir/Master-Bot
   - gintama: Risponde con una gif di Gintama
   - jojo: Risponde con una gif di Jojo
 ### Altro
-  - cat: Invia l'immagine di un gatto
+  - cat: Invia l'immagine di un sasso
   - chucknorris: Invia un fatto a caso su Chuck Norris
-  - fortune: Ti dirà qual'è la tua fortuna
+  - fortune: Ti dirà qual'è il tuo indice di fortuna
   - insult: Genera un insulto a caso
   - meme: Invia un meme a caso
   - motivation: Invia una frase motivante
