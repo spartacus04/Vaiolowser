@@ -1,5 +1,5 @@
 # Vaiolowser
-![Malario](https://i.pinimg.com/originals/08/cf/f4/08cff4f168d979d2f6cd676f7cc387ed.jpg)
+![Malario](https://www.dropbox.com/s/aornutgqyp4ovu1/vaiolowser.jpeg?dl=0)
 
 
 Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molte cose tra le quali
@@ -14,14 +14,13 @@ Il bot è basato su  https://github.com/galnir/Master-Bot
   - animegif: Risponde con una gif di un anime a caso
   - gif <nome>: Risponde con una gif con dato nome
   - gintama: Risponde con una gif di Gintama
-  - jojo: Risponde con una gif di Jojo
+  - jojo: Risponde con una gif di Jojo strana o cringe
 ### Altro
   - cat: Invia l'immagine di un sasso
   - chucknorris: Invia un fatto a caso su Chuck Norris
   - fortune: Ti dirà qual'è il tuo indice di fortuna
   - insult: Genera un insulto a caso
   - meme: Invia un meme a caso
-  - motivation: Invia una frase motivante
   - proverbi: invia un proverbio italiano
   - random <minimo> <massimo>: Sceglie un numero a caso tra quelli dati
   - reddit <subreddit> <sort>: Invia 10 post da un subreddit
