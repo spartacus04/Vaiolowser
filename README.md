@@ -1,5 +1,5 @@
 # Vaiolowser
-![Vaiolowser](https://www.dropbox.com/s/aornutgqyp4ovu1/vaiolowser.jpeg)
+![Vaiolowser](https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/icon.ico)
 
 
 Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molte cose tra le quali
