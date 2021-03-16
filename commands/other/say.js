@@ -20,11 +20,14 @@ module.exports = class SayCommand extends Command {
 
   run(message, { text }) {
     let bababui = text;
-    if(text.toLowerCase() == "malario gay"){
-      bababui = "eboluigi lesbico";
+    if(text.toLowerCase() == "vaiolowser bimbo fortnite"){
+      bababui = "abortoad gay spagnolo";
+    }
+    else if(text.toLowerCase() == "sessoforte"){
+      bababui = "con jack";
     }
     else if(text.toLowerCase() == "esteban gay"){
-      bababui = "non posso dire altro se non concordare";
+      bababui = "SI";
     }
     if(text.toLowerCase().startsWith("/tts ")){
       bababui = text.replace("/tts ", "");

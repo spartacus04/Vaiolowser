@@ -9,7 +9,7 @@ module.exports = class CatCommand extends Command {
       aliases: ['cat-pic', 'cats'],
       group: 'other',
       memberName: 'cat',
-      description: 'Risponde con un immagine di un gatto',
+      description: 'Risponde con un immagine di un sasso',
       throttling: {
         usages: 2,
         duration: 10
@@ -18,11 +18,11 @@ module.exports = class CatCommand extends Command {
   }
 
   run(message) {
-    fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=cat&limit=1`)
+    fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=rock&limit=1`)
       .then(res => res.json())
       .then(json => message.say(json.results[0].url))
       .catch(err => {
-        message.say('Bruh non ho trovato un gatto');
+        message.say('Bruh non ho trovato un sasso');
         return console.error(err);
       });
   }

@@ -10,7 +10,7 @@ module.exports = class JojoCommand extends Command {
       aliases: ['tpose'],
       group: 'gifs',
       memberName: 'tpose',
-      description: 'Replies with a tpose',
+      description: 'manda un personaggio del regno dei funghi in tpose',
       throttling: {
         usages: 20,
         duration: 8
