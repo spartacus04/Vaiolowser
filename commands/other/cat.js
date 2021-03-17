@@ -36,7 +36,10 @@ module.exports = class CatCommand extends Command {
         .setImage(allowed[randomnumber].data.url)
         .setFooter(`Postato da u/${allowed[randomnumber].data.author} su r/geologyporn (${allowed[randomnumber].data.ups} upvotes)`)
         message.channel.send(embed)
-      }).catch(function (err){ console.log(err)});
+      }).catch(function (err){
+        message.say("c'è stato un errore");
+        console.log(err);
+      });
       
     } catch (err) {
       message.say("Bruh non ho trovato un sasso");
