@@ -24,6 +24,8 @@ client.registry
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
+
+var ngrok = false;
 client.once('ready', () => {
   console.log('Ready!');
   client.user.setActivity("le tue urla", {
@@ -31,14 +33,19 @@ client.once('ready', () => {
     url: 'https://youtu.be/pnHg892Xwpk'
   });
 
-
+  
   //Indirizzi IP di Ngrok
   const doc = firestore.collection('Vaiolowser').doc('NgrokIp');
 
   const observer = doc.onSnapshot(docSnapshot => {
     const data = docSnapshot.data();
     const channel = client.channels.cache.find(channel => channel.id === "821676557465681920")
-    channel.send(`Ho ricevuto un nuovo ip per connettersi a: ${data.Motivo} (${data.Ip})`);
+    if(ngrok){
+      channel.send(`Ho ricevuto un nuovo ip per connettersi a: ${data.Motivo} (${data.Ip})`);
+    }
+    else{
+      ngrok = true;
+    }
   }, err => {
     console.log(`Encountered error: ${err}`);
   });
