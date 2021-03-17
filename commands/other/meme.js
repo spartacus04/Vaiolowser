@@ -32,7 +32,7 @@ module.exports = class RandomNumberCommand extends Command {
       .then(body => body.json())
       .then((body) => {
         const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
-        if (!allowed.length) return sg.channel.send('I meme golosi sono finiti, torna a casa ora');
+        if (!allowed.length) return message.say('I meme golosi sono finiti, torna a casa ora');
         const randomnumber = Math.floor(Math.random() * allowed.length)
         const embed = new MessageEmbed();
         embed

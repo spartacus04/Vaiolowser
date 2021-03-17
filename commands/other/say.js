@@ -21,20 +21,14 @@ module.exports = class SayCommand extends Command {
   run(message, { text }) {
     let bababui = text;
     if(text.toLowerCase() == "vaiolowser bimbo fortnite"){
-      bababui = "abortoad gay spagnolo";
+      bababui = "*abortoad gay spagnolo*";
     }
     else if(text.toLowerCase() == "sessoforte"){
-      bababui = "con jack";
+      bababui = "*con jack*";
     }
     else if(text.toLowerCase() == "esteban gay"){
-      bababui = "SI";
+      bababui = "*Ebbene si ragazzo*";
     }
-    if(text.toLowerCase().startsWith("/tts ")){
-      bababui = text.replace("/tts ", "");
-      return message.channel.send(bababui.replace("\n", " "), { tts: true });
-    }
-    else{
-      return message.say(bababui);
-    }
+    return message.say(`*${bababui}*`);
   }
 };
