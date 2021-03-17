@@ -6,7 +6,7 @@ module.exports = class MotivationCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'proverbio',
-      aliases: ['motivational, motivation-quote'],
+      aliases: ['proverbio'],
       group: 'other',
       memberName: 'proverbio',
       description: 'dice un proverbio italiano'
@@ -15,7 +15,7 @@ module.exports = class MotivationCommand extends Command {
   run(message) {
 
     const jsonQuotes = fs.readFileSync(
-      'resources/quotes/broverbiitaliani.json',
+      'resources/quotes/proverbiItaliani.json',
       'utf8'
     );
     const quoteArray = JSON.parse(jsonQuotes).quotes;
