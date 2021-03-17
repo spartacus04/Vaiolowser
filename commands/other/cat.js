@@ -18,7 +18,7 @@ module.exports = class CatCommand extends Command {
   }
 
   run(message) {
-    fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=rock&limit=1`)
+    fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=sasso&limit=1`)
       .then(res => res.json())
       .then(json => message.say(json.results[0].url))
       .catch(err => {
