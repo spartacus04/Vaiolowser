@@ -57,16 +57,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
-<<<<<<< HEAD
- {
-    if(message.content.toLowerCase() == "vaiolower finocchio"){
-      message.channel.send("No tu");
-    }
-=======
 client.on('message', message => {
-  if(message.content.toLowerCase() == "vaiolowser rincoglionito"){
+  if(message.content.toLowerCase() == "vaiolowser rincoglionito" || message.content.toLowerCase() == "vaiolower finocchio"){
     message.channel.send("No tu");
->>>>>>> b8b79e5fda29b168ae7a2b3d57b60907d69300f6
   }
 });
 
