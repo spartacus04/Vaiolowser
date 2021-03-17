@@ -13,8 +13,7 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
     ['gifs', 'Gif'],
-    ['other', 'Altro'],
-    ['guild', 'Comandi del server']
+    ['other', 'Altro']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
