@@ -6,7 +6,7 @@ const path = require('path');
 
 const client = new CommandoClient({
   commandPrefix: "v.",
-  owner: "820979452892020786"
+  owner: "465954478852669460"
 });
 
 client.registry
