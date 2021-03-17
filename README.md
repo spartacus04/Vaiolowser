@@ -18,7 +18,6 @@ Il bot è basato su  https://github.com/galnir/Master-Bot
 ### Altro
   - cat: Invia l'immagine di un sasso
   - chucknorris: Invia un fatto a caso su Chuck Norris
-  - calabria: invia qualcosa inerente alla regione calabria
   - insult: Genera un insulto a caso
   - meme: Invia un meme a caso
   - proverbi: invia un proverbio italiano
