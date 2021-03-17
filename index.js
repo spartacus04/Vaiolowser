@@ -1,13 +1,12 @@
 /* eslint-disable no-empty */
 const { CommandoClient } = require('./discord.js-commando/src');
-const { Structures } = require('discord.js');
+const firebase = require('firebase')
+require("firebase/firestore");
 const path = require('path');
-const Cron = require("cron");
-const fetch = require('node-fetch');
 
 const client = new CommandoClient({
   commandPrefix: "v.",
-  owner: "820979452892020786" // value comes from config.json
+  owner: "820979452892020786"
 });
 
 client.registry
@@ -28,21 +27,41 @@ client.registry
 
 client.once('ready', () => {
   console.log('Ready!');
-  client.user.setActivity(`un gioco piselloso`, {
-    type: 'PLAYNG',
+  client.user.setActivity("le tue urla", {
+    type: 'LISTENING',
     url: 'https://youtu.be/pnHg892Xwpk'
+  });
+
+
+  //Indirizzi IP di Ngrok
+  const doc = firestore.collection('Vaiolowser').doc('NgrokIp');
+
+  const observer = doc.onSnapshot(docSnapshot => {
+    const data = docSnapshot.data();
+    const channel = client.channels.cache.find(channel => channel.id === "821676557465681920")
+    channel.send(`Ho ricevuto un nuovo ip per connettersi a: ${data.Motivo} (${data.Ip})`);
+  }, err => {
+    console.log(`Encountered error: ${err}`);
   });
 });
 
+var firebaseConfig = {
+  apiKey: "AIzaSyD2sujk0Xc8968UysVqhpkEDF1G_7B6sLI",
+  authDomain: "prosciutthanos-events.firebaseapp.com",
+  projectId: "prosciutthanos-events",
+  storageBucket: "prosciutthanos-events.appspot.com",
+  messagingSenderId: "256859147490",
+  appId: "1:256859147490:web:6e5ac97b4bd69de936a2bb",
+  measurementId: "G-4CCNXP5VF5"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+
 client.on('message', message => {
-
- {
-    if(message.content.toLowerCase() == "vaiolower rincoglionito"){
-      message.channel.send("No tu");
-    }
+  if(message.content.toLowerCase() == "vaiolowser rincoglionito"){
+    message.channel.send("No tu");
   }
-  
-
 });
 
 client.on('voiceStateUpdate', async (___, newState) => {
@@ -65,5 +84,8 @@ client.on('voiceStateUpdate', async (___, newState) => {
     newState.setSelfDeaf(true);
   }
 });
+
+
+
 
 client.login(process.env.token);
