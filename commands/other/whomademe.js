@@ -1,4 +1,5 @@
 const { Command } = require('../../discord.js-commando/src');
+const { client} = require('discord.js');
 
 module.exports = class WhoMadeMeCommand extends Command {
   constructor(client) {
@@ -12,8 +13,9 @@ module.exports = class WhoMadeMeCommand extends Command {
   }
 
   run(message) {
+    const cinabroId = message.guild.emojis.cache.find(emoji => emoji.name === "cinabro") 
     message.say(
-      'Mio padre @sistone#9499 e mio zio @spartacus04#9422 mi hanno creato con :cinabro: Altre info a https://github.com/spartacus04/Vaiolowser'
+      `Mio padre <@!556091106358460417> e mio zio <@!465954478852669460> mi hanno creato con ${cinabroId} Altre info a https://github.com/spartacus04/Vaiolowser`
     );
   }
 };

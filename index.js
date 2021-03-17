@@ -46,7 +46,7 @@ client.once('ready', () => {
 });
 
 var firebaseConfig = {
-  apiKey: "AIzaSyD2sujk0Xc8968UysVqhpkEDF1G_7B6sLI",
+  apiKey: process.env.firebaseAPI,
   authDomain: "prosciutthanos-events.firebaseapp.com",
   projectId: "prosciutthanos-events",
   storageBucket: "prosciutthanos-events.appspot.com",
@@ -84,8 +84,5 @@ client.on('voiceStateUpdate', async (___, newState) => {
     newState.setSelfDeaf(true);
   }
 });
-
-
-
 
 client.login(process.env.token);
