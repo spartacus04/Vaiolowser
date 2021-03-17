@@ -15,7 +15,7 @@ module.exports = class MotivationCommand extends Command {
   run(message) {
 
     const jsonQuotes = fs.readFileSync(
-      'resources/quotes/proverbiItaliani.json',
+      'resources/proverbiItaliani.json',
       'utf8'
     );
     const quoteArray = JSON.parse(jsonQuotes).quotes;
