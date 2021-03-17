@@ -18,7 +18,7 @@ module.exports = class JojoCommand extends Command {
 
   run(message) {
     try {
-      var files = fs.readdirSync('/resources/images/tpose');
+      var files = fs.readdirSync('resources/images/tpose');
       const link = files[Math.floor(Math.random() * files.length)];
       return message.channel.send({
         files: [{
