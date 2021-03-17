@@ -1,5 +1,3 @@
-// const fetch = require("node-fetch");
-// const { tenorAPI } = require("../config.json");
 const fs = require('fs');
 const { Command } = require('../../discord.js-commando/src');
 
@@ -20,13 +18,11 @@ module.exports = class JojoCommand extends Command {
 
   run(message) {
     try {
-      const linkArray = fs
-        .readFileSync('resources/quotes/tpose.txt', 'utf8')
-        .split('\n');
-      const link = linkArray[Math.floor(Math.random() * linkArray.length)];
+      var files = fs.readdirSync('/resources/images/tpose');
+      const link = files[Math.floor(Math.random() * files.length)];
       return message.channel.send({
         files: [{
-          attachment: link,
+          attachment: `https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/tpose/${link}`,
           name: 'tpose.jpeg'
         }]}
       );
