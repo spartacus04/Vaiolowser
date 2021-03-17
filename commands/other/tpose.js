@@ -24,7 +24,12 @@ module.exports = class JojoCommand extends Command {
         .readFileSync('resources/quotes/tpose.txt', 'utf8')
         .split('\n');
       const link = linkArray[Math.floor(Math.random() * linkArray.length)];
-      return message.say(link);
+      return message.channel.send({
+        files: [{
+          attachment: link,
+          name: 'tpose.jpeg'
+        }]}
+      );
     } catch (e) {
       return console.error(e);
     }
