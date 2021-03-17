@@ -1,13 +1,13 @@
 {
   "name": "vaiolowser",
   "version": "1.0.0",
-  "description": "Un bot autistico",
+  "description": "Un bot meno autistico",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "node test.js"
   },
-  "author": "Andrea Bonari",
+  "author": "Alessandro Sist",
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.4.0",

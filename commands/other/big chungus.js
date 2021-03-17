@@ -3,19 +3,19 @@ const { Command } = require('../../discord.js-commando/src');
 module.exports = class RandomNumberCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'nigga',
-      aliases: ['nigga'],
-      memberName: 'nigga',
+      name: 'bigchungus',
+      aliases: ['bigchungus'],
+      memberName: 'bigchungus',
       group: 'other',
-      description: 'Invia un N-Word Pass'
+      description: 'Invia un big chungus'
     });
   }
 
   run(message) {
     message.channel.send({
         files: [{
-            attachment: "https://i.redd.it/adswy1g5mh631.jpg",
-            name: 'mword.png'
+            attachment: "https://tenor.com/brMsh.gif",
+            name: 'brMsh.gif'
         }]
     })
   }

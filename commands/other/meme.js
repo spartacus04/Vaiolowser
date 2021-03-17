@@ -9,15 +9,15 @@ module.exports = class RandomNumberCommand extends Command {
       aliases: ['meme'],
       memberName: 'meme',
       group: 'other',
-      description: 'Invia un Meme'
+      description: 'Invia un Meme dai subreddit preferiti di sistone'
     });
   }
 
   async run(message) {
     let reddit = [
-        "ShitPostCrusaders",
-        "memes",
-        "dankmemes"
+        "PrequelMemes",
+        "memesITA",
+        "gaiming"
     ]
 
     let subreddit = reddit[Math.floor(Math.random() * reddit.length)];

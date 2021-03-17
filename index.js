@@ -13,7 +13,6 @@ const client = new CommandoClient({
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['music', 'Musica'],
     ['gifs', 'Gif'],
     ['other', 'Altro'],
     ['guild', 'Comandi del server']
@@ -37,7 +36,7 @@ client.once('ready', () => {
 client.on('message', message => {
 
  {
-    if(message.content.toLowerCase() == "vaiolower rincoglionito"){
+    if(message.content.toLowerCase() == "vaiolower finocchio"){
       message.channel.send("No tu");
     }
   }
