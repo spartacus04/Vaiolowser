@@ -13,9 +13,12 @@
     "@discordjs/opus": "^0.4.0",
     "cheerio": "^1.0.0-rc.5",
     "common-tags": "^1.8.0",
+    "cron": "^1.8.2",
     "discord.js": "^12.5.1",
     "firebase": "^8.3.0",
+    "gamedig": "^3.0.0",
     "iso-639-1": "^2.1.8",
+    "minecraft-server-ping": "^0.0.3",
     "node-fetch": "^2.6.1",
     "require-all": "^3.0.0"
   },

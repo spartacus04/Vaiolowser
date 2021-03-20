@@ -1,8 +1,10 @@
 /* eslint-disable no-empty */
 const { CommandoClient } = require('./discord.js-commando/src');
+const minecraftPing = require('minecraft-server-ping');
 const firebase = require('firebase')
 require("firebase/firestore");
 const path = require('path');
+const Discord = require('discord.js');
 
 const client = new CommandoClient({
   commandPrefix: "v.",
@@ -10,18 +12,18 @@ const client = new CommandoClient({
 });
 
 client.registry
-  .registerDefaultTypes()
-  .registerGroups([
-    ['gifs', 'Gif'],
-    ['other', 'Altro']
-  ])
-  .registerDefaultGroups()
-  .registerDefaultCommands({
-    eval: false,
-    prefix: false,
-    commandState: false
-  })
-  .registerCommandsIn(path.join(__dirname, 'commands'));
+.registerDefaultTypes()
+.registerGroups([
+  ['gifs', 'Gif'],
+  ['other', 'Altro']
+])
+.registerDefaultGroups()
+.registerDefaultCommands({
+  eval: false,
+  prefix: false,
+  commandState: false
+})
+.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
 var ngrok = false;
@@ -34,13 +36,44 @@ client.once('ready', () => {
 
   
   //Indirizzi IP di Ngrok
-  const doc = firestore.collection('Vaiolowser').doc('NgrokIp');
+  const doc = firestore.collection('Vaiolowser-Ngrok-Ips');
 
-  const observer = doc.onSnapshot(docSnapshot => {
-    const data = docSnapshot.data();
-    const channel = client.channels.cache.find(channel => channel.id === "821676557465681920")
+  const observer = doc.onSnapshot(async function(docSnapshot) {
+    const channel = client.channels.cache.find(channel => channel.id === "821676557465681920");
     if(ngrok){
-      channel.send(`Ho ricevuto un nuovo ip per connettersi a: ${data.Motivo} (${data.Ip})`);
+      docSnapshot.docChanges().forEach(change => {
+        if(change.type === 'added') {
+          data = change.doc.data();
+          var embed = new Discord.MessageEmbed();
+          embed.setAuthor('Nuovo IP');
+          embed.setColor('#00ff00');
+          embed.setTitle(data.Game);
+          var orario = new Date();
+          embed.setFooter(`Inviato alle ${orario.getHours()}:${orario.getMinutes()}`);
+          if(data.Game.toLowerCase().includes('terraria')){
+            if(data.Game.toLowerCase().includes('moddato') || data.Game.toLowerCase().includes('calamity')){
+              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Calamity.ico')
+            }
+            else{
+              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Terraria.ico')
+            }
+            embed.setDescription(`Ip : ${data.Ip}\nPorta : ${data.Port}`);
+          }
+          else if(data.Game.toLowerCase().includes('minecraft')){
+            if(data.Game.toLowerCase().includes('moddato')){
+              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Moddato.ico')
+            }
+            else if(data.Game.toLowerCase().includes('sevtech')){
+              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Sevtech.ico')
+            }
+            else{
+              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Vanilla.ico')
+            }
+            embed.setDescription(`${data.Ip}:${data.Port}`);
+            channel.send(embed);
+          }
+        }
+      })
     }
     else{
       ngrok = true;
