@@ -49,7 +49,7 @@ client.once('ready', () => {
           embed.setColor('#00ff00');
           embed.setTitle(data.Game);
           var orario = new Date();
-          embed.setFooter(`Inviato alle ${orario.getHours()}:${orario.getMinutes()}`);
+          embed.setFooter(`Inviato alle ${orario.getHours() + 1}:${orario.getMinutes()}`);
           if(data.Game.toLowerCase().includes('terraria')){
             if(data.Game.toLowerCase().includes('moddato') || data.Game.toLowerCase().includes('calamity')){
               embed.attachFiles(['resources/images/serverImages/Calamity.png']);
