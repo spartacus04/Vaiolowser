@@ -52,26 +52,31 @@ client.once('ready', () => {
           embed.setFooter(`Inviato alle ${orario.getHours()}:${orario.getMinutes()}`);
           if(data.Game.toLowerCase().includes('terraria')){
             if(data.Game.toLowerCase().includes('moddato') || data.Game.toLowerCase().includes('calamity')){
-              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Calamity.ico')
+              embed.attachFiles(['resources/images/serverImages/Calamity.png']);
+              embed.setThumbnail('attachment://Calamity.png');
             }
             else{
-              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Terraria.ico')
+              embed.attachFiles(['resources/images/serverImages/Terraria.png']);
+              embed.setThumbnail('attachment://Terraria.png');
             }
             embed.setDescription(`Ip : ${data.Ip}\nPorta : ${data.Port}`);
           }
           else if(data.Game.toLowerCase().includes('minecraft')){
             if(data.Game.toLowerCase().includes('moddato')){
-              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Moddato.ico')
+              embed.attachFiles(['resources/images/serverImages/Moddato.png']);
+              embed.setThumbnail('attachment://Moddato.png');
             }
             else if(data.Game.toLowerCase().includes('sevtech')){
-              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Sevtech.ico')
+              embed.attachFiles(['resources/images/serverImages/Sevtech.png']);
+              embed.setThumbnail('attachment://Sevtech.png');
             }
             else{
-              embed.setThumbnail('https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/serverImages/Vanilla.ico')
+              embed.attachFiles(['resources/images/serverImages/Vanilla.png']);
+              embed.setThumbnail('attachment://Vanilla.png');
             }
             embed.setDescription(`${data.Ip}:${data.Port}`);
-            channel.send(embed);
           }
+          channel.send(embed);
         }
       })
     }
