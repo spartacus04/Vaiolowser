@@ -70,6 +70,10 @@ client.once('ready', () => {
               embed.attachFiles(['resources/images/serverImages/Sevtech.png']);
               embed.setThumbnail('attachment://Sevtech.png');
             }
+            else if(data.Game.toLowerCase().includes('svl')){
+              embed.attachFiles(['resources/images/serverImages/svl.png']);
+              embed.setThumbnail('attachment://svl.png');
+            }
             else{
               embed.attachFiles(['resources/images/serverImages/Vanilla.png']);
               embed.setThumbnail('attachment://Vanilla.png');
