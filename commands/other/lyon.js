@@ -1,4 +1,4 @@
-const { Command } = require('../../discord.js-commando/src');
+const { Command } = require('discord.js-commando-it');
 const fetch = require('node-fetch');
 const tenorAPI = process.env.tenorAPI;
 

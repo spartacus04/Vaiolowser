@@ -1,6 +1,5 @@
 /* eslint-disable no-empty */
-const { CommandoClient } = require('./discord.js-commando/src');
-const minecraftPing = require('minecraft-server-ping');
+const { CommandoClient } = require('discord.js-commando-it');
 const firebase = require('firebase')
 require("firebase/firestore");
 const path = require('path');

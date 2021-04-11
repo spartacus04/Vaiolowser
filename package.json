@@ -10,15 +10,13 @@
   "author": "Alessandro Sist",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/opus": "^0.4.0",
     "cheerio": "^1.0.0-rc.5",
     "common-tags": "^1.8.0",
     "cron": "^1.8.2",
-    "discord.js": "^12.5.1",
-    "firebase": "^8.3.0",
-    "gamedig": "^3.0.0",
-    "iso-639-1": "^2.1.8",
-    "minecraft-server-ping": "^0.0.3",
+    "discord.js": "^12.5.3",
+    "discord.js-commando-it": "^0.12.3",
+    "firebase": "^8.3.3",
+    "iso-639-1": "^2.1.9",
     "node-fetch": "^2.6.1",
     "require-all": "^3.0.0"
   },
@@ -26,13 +24,13 @@
     "@getify/eslint-plugin-proper-arrows": "^10.0.0",
     "@getify/eslint-plugin-proper-ternary": "^3.0.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.24.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   },
   "engines": {
-    "node": "12.14.1",
-    "npm": "6.13.4"
+    "node": ">=12.14.1",
+    "npm": ">=6.13.4"
   },
   "repository": {
     "type": "git",
