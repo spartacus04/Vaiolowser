@@ -12,11 +12,11 @@ Il bot è basato su  https://github.com/galnir/Master-Bot
 
 # Comandi
 ### Gif
+  - adios: Invia un archeokoko che ti saluta
   - bigchungus: Invia un big chungus
   - jojo: Risponde con una gif di Jojo strana o cringe
   - lyon: Invia una gif di lyon WGF
 ### Altro
-  - adios: Invia un archeokoko che ti saluta
   - cat: Invia l'immagine di un sasso
   - giganteomofobico: Invia il gigante omofobico
   - hentai: Invia dio
