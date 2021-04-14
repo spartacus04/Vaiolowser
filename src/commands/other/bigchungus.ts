@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando-it');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
 
 module.exports = class RandomNumberCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'bigchungus',
       aliases: ['bigchungus'],
@@ -11,7 +11,8 @@ module.exports = class RandomNumberCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     message.channel.send({
         files: [{
             attachment: "https://tenor.com/brMsh.gif",

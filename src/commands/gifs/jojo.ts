@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { Command } = require('discord.js-commando-it');
+import * as fs from 'fs';
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
 
 module.exports = class JojoCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'jojo',
       aliases: ['jojo-gif', 'jojo-gifs'],
@@ -16,7 +16,8 @@ module.exports = class JojoCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     try {
       const linkArray = fs
         .readFileSync('resources/gifs/jojolinks.txt', 'utf8')

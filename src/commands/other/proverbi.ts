@@ -1,9 +1,9 @@
-const { Command } = require('discord.js-commando-it');
-const { MessageEmbed } = require('discord.js');
-const fs = require('fs');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { MessageEmbed } from 'discord.js';
+import * as fs from 'fs';
 
 module.exports = class MotivationCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'proverbio',
       aliases: ['proverbio'],
@@ -12,7 +12,7 @@ module.exports = class MotivationCommand extends Command {
       description: 'dice un proverbio italiano'
     });
   }
-  run(message) {
+  run(message : CommandoMessage) {
 
     const jsonQuotes = fs.readFileSync(
       'resources/proverbiItaliani.json',

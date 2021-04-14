@@ -2,31 +2,27 @@
   "name": "vaiolowser",
   "version": "1.0.0",
   "description": "Un bot meno autistico",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node test.js"
+    "start": "node dist/index.js",
+    "test": "node dist/test.js",
+    "postinstall": "npm run tsc",
+    "tsc": "tsc"
   },
-  "author": "Alessandro Sist",
+  "author": "Alessandro Sist || Andrea Bonari",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.5",
-    "common-tags": "^1.8.0",
-    "cron": "^1.8.2",
+    "@types/node": "^14.14.37",
+    "@types/node-fetch": "^2.5.10",
     "discord.js": "^12.5.3",
-    "discord.js-commando-it": "^0.12.3",
-    "firebase": "^8.3.3",
-    "iso-639-1": "^2.1.9",
-    "node-fetch": "^2.6.1",
-    "require-all": "^3.0.0"
+    "discord.js-commando-it": "^0.12.4",
+    "firebase": "^8.4.1",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "^10.0.0",
     "@getify/eslint-plugin-proper-ternary": "^3.0.1",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.24.0",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.2.1"
+    "babel-eslint": "^10.1.0"
   },
   "engines": {
     "node": ">=12.14.1",
@@ -34,6 +30,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/vaiolowser.git"
+    "url": "https://github.com/spartacus04/Vaiolowser.git"
   }
 }

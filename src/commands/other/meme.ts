@@ -1,9 +1,10 @@
-const { Command } = require('discord.js-commando-it');
-const { MessageEmbed } = require('discord.js');
-const fetch = require('node-fetch');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { MessageEmbed, TextChannel } from 'discord.js';
+import fetch from 'node-fetch';
+import { URL } from 'url';
 
 module.exports = class RandomNumberCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'meme',
       aliases: ['meme'],
@@ -13,7 +14,8 @@ module.exports = class RandomNumberCommand extends Command {
     });
   }
 
-  async run(message) {
+  //@ts-ignore
+  async run(message : CommandoMessage) {
     let reddit = [
         "PrequelMemes",
         "memesITA",
@@ -27,11 +29,11 @@ module.exports = class RandomNumberCommand extends Command {
     try {
       var url = new URL(`https://www.reddit.com/r/${subreddit}.json?sort=top&t=week`),
         params = {limit: 800}
-      Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+      Object.keys(params).forEach(key => url.searchParams.append(key, ((800 as any) as string)))
       fetch(url)
       .then(body => body.json())
       .then((body) => {
-        const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
+        const allowed = (message.channel as TextChannel).nsfw ? body.data.children : body.data.children.filter((post : any)=> !post.data.over_18);
         if (!allowed.length) return message.say('I meme golosi sono finiti, torna a casa ora');
         const randomnumber = Math.floor(Math.random() * allowed.length)
         const embed = new MessageEmbed();

@@ -1,9 +1,9 @@
-const { Command } = require('discord.js-commando-it');
-const fetch = require('node-fetch');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import fetch from 'node-fetch';
 const tenorAPI = process.env.tenorAPI;
 
 module.exports = class RandomNumberCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'lyon',
       aliases: ['lyon', 'lyonwgf'],
@@ -13,7 +13,8 @@ module.exports = class RandomNumberCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=lyonwgf&limit=1`)
       .then(res => res.json())
       .then(json => message.say(json.results[0].url))

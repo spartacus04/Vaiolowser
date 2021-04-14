@@ -1,7 +1,7 @@
-const { Command } = require('discord.js-commando-it');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
 
 module.exports = class SayCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'say',
       aliases: ['make-me-say', 'print'],
@@ -18,7 +18,7 @@ module.exports = class SayCommand extends Command {
     });
   }
 
-  run(message, { text }) {
+  run(message : CommandoMessage, { text } : { text : string }) {
     let bababui = text;
     if(text.toLowerCase() == "vaiolowser bimbo fortnite"){
       bababui = "*abortoad gay spagnolo*";

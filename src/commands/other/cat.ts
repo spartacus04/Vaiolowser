@@ -1,10 +1,11 @@
-const fetch = require('node-fetch');
-const { Command } = require('discord.js-commando-it');
-const { MessageEmbed } = require('discord.js');
+import fetch from 'node-fetch';
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { MessageEmbed, TextChannel } from 'discord.js';
+import { URL } from 'url';
 
 
 module.exports = class CatCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'cat',
       aliases: ['cat-pic', 'cats', 'rock'],
@@ -18,16 +19,17 @@ module.exports = class CatCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     try {
-      var url = new URL(`https://www.reddit.com/r/geologyporn.json?sort=hot&t=week`),
+      var query = new URL(`https://www.reddit.com/r/geologyporn.json?sort=hot&t=week`),
         params = {limit: 800}
-      Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-      fetch(url)
+      Object.keys(params).forEach(key => query.searchParams.append(key, ((800 as any) as string)))
+      fetch(query)
       .then(body => body.json())
       .then((body) => {
-        const allowed = message.channel.nsfw ? body.data.children : body.data.children.filter(post => !post.data.over_18);
-        if (!allowed.length) return sg.channel.send('I meme golosi sono finiti, torna a casa ora');
+        const allowed = (message.channel as TextChannel).nsfw ? body.data.children : body.data.children.filter((post : any)=> !post.data.over_18);
+        if (!allowed.length) return message.channel.send('I meme golosi sono finiti, torna a casa ora');
         const randomnumber = Math.floor(Math.random() * allowed.length)
         const embed = new MessageEmbed();
         embed

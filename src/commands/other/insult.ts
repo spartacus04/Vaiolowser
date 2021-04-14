@@ -1,9 +1,9 @@
-const fetch = require('node-fetch');
-const { Command } = require('discord.js-commando-it');
-const { MessageEmbed } = require('discord.js');
+import fetch from 'node-fetch';
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { MessageEmbed } from 'discord.js';
 
 module.exports = class InsultCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'insult',
       group: 'other',
@@ -16,7 +16,8 @@ module.exports = class InsultCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     // thanks to https://evilinsult.com :)
     fetch('https://evilinsult.com/generate_insult.php?lang=de&type=json')
       .then(res => res.json())

@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { Command } = require('discord.js-commando-it');
+import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import * as fs from 'fs';
 
 module.exports = class JojoCommand extends Command {
-  constructor(client) {
+  constructor(client : CommandoClient) {
     super(client, {
       name: 'tpose',
       aliases: ['tpose'],
@@ -16,7 +16,8 @@ module.exports = class JojoCommand extends Command {
     });
   }
 
-  run(message) {
+  //@ts-ignore
+  run(message : CommandoMessage) {
     try {
       var files = fs.readdirSync('resources/images/tpose');
       const link = files[Math.floor(Math.random() * files.length)];

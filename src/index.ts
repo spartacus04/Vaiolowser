@@ -1,9 +1,9 @@
 /* eslint-disable no-empty */
-const { CommandoClient } = require('discord.js-commando-it');
-const firebase = require('firebase')
+import { CommandoClient } from 'discord.js-commando-it';
+import firebase from 'firebase';
 require("firebase/firestore");
-const path = require('path');
-const Discord = require('discord.js');
+import * as path from 'path';
+import Discord, { TextChannel } from 'discord.js';
 
 const client = new CommandoClient({
   commandPrefix: "v.",
@@ -42,7 +42,7 @@ client.once('ready', () => {
     if(ngrok){
       docSnapshot.docChanges().forEach(change => {
         if(change.type === 'added') {
-          data = change.doc.data();
+          var data = change.doc.data();
           var embed = new Discord.MessageEmbed();
           embed.setAuthor('Nuovo IP');
           embed.setColor('#00ff00');
@@ -79,7 +79,7 @@ client.once('ready', () => {
             }
             embed.setDescription(`${data.Ip}:${data.Port}`);
           }
-          channel.send(embed);
+          (channel as TextChannel).send(embed);
         }
       })
     }
