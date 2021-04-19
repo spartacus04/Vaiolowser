@@ -80,6 +80,7 @@ client.once('ready', () => {
             embed.setDescription(`${data.Ip}:${data.Port}`);
           }
           (channel as TextChannel).send(embed);
+          change.doc.ref.delete();
         }
       })
     }
