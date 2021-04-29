@@ -11,7 +11,7 @@ module.exports = class SayCommand extends Command {
       args: [
         {
           key: 'lenght',
-          prompt: 'noh',
+          prompt: 'Inserisci la lunghezza',
           type: 'integer'
         }
       ]
