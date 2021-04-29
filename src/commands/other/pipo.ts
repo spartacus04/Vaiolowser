@@ -4,7 +4,7 @@ module.exports = class SayCommand extends Command {
   constructor(client : CommandoClient) {
     super(client, {
       name: 'pipo',
-      aliases: ['pipo'],
+      aliases: ['pipo', 'pene'],
       memberName: 'pipo',
       group: 'other',
       description: 'pipo',
@@ -23,6 +23,6 @@ module.exports = class SayCommand extends Command {
     for (let i = 0; i < lenght; i++) {
       p += "=";
     }
-    return message.say("8" + p + ">");
+    return message.say("8" + p + "D");
   }
 };
