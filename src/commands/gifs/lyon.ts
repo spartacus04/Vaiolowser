@@ -13,9 +13,8 @@ module.exports = class RandomNumberCommand extends Command {
     });
   }
 
-  //@ts-ignore
   run(message : CommandoMessage) {
-    fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=lyonwgf&limit=1`)
+    return fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=lyonwgf&limit=1`)
       .then(res => res.json())
       .then(json => {return message.say(json.results[0].url)})
       .catch(err => {

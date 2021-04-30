@@ -19,35 +19,28 @@ module.exports = class CatCommand extends Command {
     });
   }
 
-  //@ts-ignore
   run(message : CommandoMessage) {
-    try {
-      var query = new URL(`https://www.reddit.com/r/geologyporn.json?sort=hot&t=week`),
-        params = {limit: 800}
-      Object.keys(params).forEach(key => query.searchParams.append(key, ((800 as any) as string)))
-      fetch(query)
-      .then(body => body.json())
-      .then((body) => {
-        const allowed = (message.channel as TextChannel).nsfw ? body.data.children : body.data.children.filter((post : any)=> !post.data.over_18);
-        if (!allowed.length) return message.channel.send('I meme golosi sono finiti, torna a casa ora');
-        const randomnumber = Math.floor(Math.random() * allowed.length)
-        const embed = new MessageEmbed();
-        embed
-        .setColor(0x00A2E8)
-        .setTitle(allowed[randomnumber].data.title)
-        .setImage(allowed[randomnumber].data.url)
-        .setFooter(`Postato da u/${allowed[randomnumber].data.author} su r/geologyporn (${allowed[randomnumber].data.ups} upvotes)`)
-        message.channel.send(embed)
-      }).catch(function (err){
-        console.log(err);
-        return message.say("c'è stato un errore");
-      });
-      
-    } catch (err) {
+    var query = new URL(`https://www.reddit.com/r/geologyporn.json?sort=hot&t=week`),
+      params = {limit: 800}
+    Object.keys(params).forEach(key => query.searchParams.append(key, ((800 as any) as string)))
+    return fetch(query)
+    .then(body => body.json())
+    .then((body) => {
+      const allowed = (message.channel as TextChannel).nsfw ? body.data.children : body.data.children.filter((post : any)=> !post.data.over_18);
+      if (!allowed.length) return message.channel.send('I meme golosi sono finiti, torna a casa ora');
+      const randomnumber = Math.floor(Math.random() * allowed.length)
+      const embed = new MessageEmbed();
+      embed
+      .setColor(0x00A2E8)
+      .setTitle(allowed[randomnumber].data.title)
+      .setImage(allowed[randomnumber].data.url)
+      .setFooter(`Postato da u/${allowed[randomnumber].data.author} su r/geologyporn (${allowed[randomnumber].data.ups} upvotes)`)
+      message.channel.stopTyping();
+      message.channel.send(embed)
+    }).catch(function (err){
       console.log(err);
-      message.say("Bruh non ho trovato un sasso");
-    } finally {
-      return message.channel.stopTyping();
-    }
+      return message.say("c'è stato un errore");
+    });
+   
   }
 };

@@ -16,19 +16,14 @@ module.exports = class JojoCommand extends Command {
     });
   }
 
-  //@ts-ignore
   run(message : CommandoMessage) {
-    try {
-      var files = fs.readdirSync('resources/images/tpose');
-      const link = files[Math.floor(Math.random() * files.length)];
-      return message.channel.send({
-        files: [{
-          attachment: `https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/tpose/${link}`,
-          name: 'tpose.jpeg'
-        }]}
-      );
-    } catch (e) {
-      return console.error(e);
-    }
+    var files = fs.readdirSync('resources/images/tpose');
+    const link = files[Math.floor(Math.random() * files.length)];
+    return message.channel.send({
+      files: [{
+        attachment: `https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/tpose/${link}`,
+        name: 'tpose.jpeg'
+      }]}
+    );
   }
 };

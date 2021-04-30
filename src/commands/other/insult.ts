@@ -18,7 +18,7 @@ module.exports = class InsultCommand extends Command {
 
   //@ts-ignore
   run(message : CommandoMessage) {
-    fetch('https://evilinsult.com/generate_insult.php?lang=de&type=json')
+    return fetch('https://evilinsult.com/generate_insult.php?lang=de&type=json')
       .then(res => res.json())
       .then(json => {
         const embed = new MessageEmbed()
@@ -26,11 +26,11 @@ module.exports = class InsultCommand extends Command {
           .setTitle('Insulto')
           .setDescription(json.insult)
           .setURL('https://evilinsult.com');
-        return message.say(embed);
+        message.say(embed);
       })
       .catch(err => {
         message.say('Bruh non va :sob:');
-        return console.error(err);
+        console.error(err);
       });
   }
 };
