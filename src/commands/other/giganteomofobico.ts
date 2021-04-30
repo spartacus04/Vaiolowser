@@ -12,9 +12,8 @@ module.exports = class RandomNumberCommand extends Command {
     });
   }
 
-  //@ts-ignore
   run(message : CommandoMessage) {
-    message.channel.send({
+    return message.channel.send({
         files: [{
             attachment: "https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/gigante.jpeg",
             name: 'gigante.jpeg'

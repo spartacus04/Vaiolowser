@@ -11,10 +11,9 @@ module.exports = class WhoMadeMeCommand extends Command {
     });
   }
 
-  //@ts-ignore
   run(message : CommandoMessage) {
     const cinabroId = message.guild.emojis.cache.find(emoji => emoji.name === "cinabro") 
-    message.say(
+    return message.say(
       `Mio padre <@!556091106358460417> e mio zio <@!465954478852669460> mi hanno creato con ${cinabroId} Altre info a https://github.com/spartacus04/Vaiolowser`
     );
   }

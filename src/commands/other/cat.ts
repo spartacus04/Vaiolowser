@@ -39,15 +39,15 @@ module.exports = class CatCommand extends Command {
         .setFooter(`Postato da u/${allowed[randomnumber].data.author} su r/geologyporn (${allowed[randomnumber].data.ups} upvotes)`)
         message.channel.send(embed)
       }).catch(function (err){
-        message.say("c'è stato un errore");
         console.log(err);
+        return message.say("c'è stato un errore");
       });
       
     } catch (err) {
-      message.say("Bruh non ho trovato un sasso");
       console.log(err);
+      message.say("Bruh non ho trovato un sasso");
     } finally {
-      message.channel.stopTyping();
+      return message.channel.stopTyping();
     }
   }
 };

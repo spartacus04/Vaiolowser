@@ -1,9 +1,25 @@
 /* eslint-disable no-empty */
-import { CommandoClient } from 'discord.js-commando-it';
+import { CommandoClient, CommandoGuild } from 'discord.js-commando-it';
 import firebase from 'firebase';
 require("firebase/firestore");
 import * as path from 'path';
-import Discord, { TextChannel } from 'discord.js';
+import Discord, { Structures, TextChannel } from 'discord.js';
+
+
+export class GameGuild extends CommandoGuild {
+  constructor(client : any, data : any) {
+    super(client, data);
+    this.gameData = {
+      
+    };
+  }
+
+  public gameData : any;
+}
+
+Structures.extend('Guild', function() {
+  return GameGuild;
+});
 
 const client = new CommandoClient({
   commandPrefix: "v.",
@@ -13,6 +29,7 @@ const client = new CommandoClient({
 client.registry
 .registerDefaultTypes()
 .registerGroups([
+  ['games', 'giochi'],
   ['gifs', 'Gif'],
   ['other', 'Altro']
 ])

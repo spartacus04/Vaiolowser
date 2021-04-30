@@ -17,11 +17,10 @@ module.exports = class RandomNumberCommand extends Command {
   run(message : CommandoMessage) {
     fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=lyonwgf&limit=1`)
       .then(res => res.json())
-      .then(json => message.say(json.results[0].url))
+      .then(json => {return message.say(json.results[0].url)})
       .catch(err => {
-        message.say('Non ho trovato una gif <:tasbien:712705754678951987>');
         console.error(err);
-        return;
+        return message.say('Non ho trovato una gif <:tasbien:712705754678951987>');
       });
   }
 };

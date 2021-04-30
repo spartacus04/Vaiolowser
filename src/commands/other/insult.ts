@@ -18,7 +18,6 @@ module.exports = class InsultCommand extends Command {
 
   //@ts-ignore
   run(message : CommandoMessage) {
-    // thanks to https://evilinsult.com :)
     fetch('https://evilinsult.com/generate_insult.php?lang=de&type=json')
       .then(res => res.json())
       .then(json => {
