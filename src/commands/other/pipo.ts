@@ -12,7 +12,8 @@ module.exports = class SayCommand extends Command {
         {
           key: 'lenght',
           prompt: 'Inserisci la lunghezza',
-          type: 'integer'
+          type: 'integer',
+          max: 1998
         }
       ]
     });
