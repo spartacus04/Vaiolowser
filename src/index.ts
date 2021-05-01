@@ -10,11 +10,14 @@ export class GameGuild extends CommandoGuild {
   constructor(client : any, data : any) {
     super(client, data);
     this.gameData = {
-      
+      currentGame: "",
+      minPlayers: 0,
+      maxPlayers : 0,
+      players: [{ name: null, id: null}]
     };
   }
 
-  public gameData : any;
+  public gameData : { currentGame : string, minPlayers : number, maxPlayers : number, players : {name : string, id : string}[]};
 }
 
 Structures.extend('Guild', function() {

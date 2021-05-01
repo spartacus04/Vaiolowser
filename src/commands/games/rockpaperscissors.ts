@@ -1,5 +1,6 @@
-import { MessageEmbed, MessageReaction, ReactionEmoji, User } from 'discord.js';
+import { MessageEmbed, MessageReaction, User } from 'discord.js';
 import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { GameGuild } from '../../index';
 
 module.exports = class RockpaperscissorsCommand extends Command {
   constructor(client : CommandoClient) {
@@ -14,6 +15,10 @@ module.exports = class RockpaperscissorsCommand extends Command {
 
   async run(message : CommandoMessage) {
     if(message.channel.id != "830519380931510282") return;
+    
+    if((message.guild as GameGuild).gameData.currentGame != "") return;
+
+    (message.guild as GameGuild).gameData = {currentGame: "rps", minPlayers: 1, maxPlayers: 1, players: [{id: message.author.id, name: message.author.avatar}]}
 
     var toReact = await message.say("Sasso carta o forbice?");
 
@@ -50,9 +55,13 @@ module.exports = class RockpaperscissorsCommand extends Command {
         embed.setTitle("Hai perso...");
         embed.setColor("#ff0000");
       }
-      embed.setDescription(`ho scelto ${RockpaperscissorsCommand.numToEmoji(res)}.\n${RockpaperscissorsCommand.numToEmoji(res)} VS ${emojii}`)
+
+      embed.setDescription(`ho scelto ${RockpaperscissorsCommand.numToEmoji(res)}.\n${RockpaperscissorsCommand.numToEmoji(res)} VS ${emojii}`);
+      (message.guild as GameGuild).gameData.currentGame = "";
       return message.say(embed);
+
     }).catch(collected => {
+      (message.guild as GameGuild).gameData.currentGame = "";
       message.delete();
       return toReact.delete();
     });
@@ -69,6 +78,4 @@ module.exports = class RockpaperscissorsCommand extends Command {
     if(num == "📰") return 2;
     if(num == "✂️") return 3;
   }
-
-
 }
