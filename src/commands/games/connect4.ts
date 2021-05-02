@@ -2,14 +2,14 @@ import { Message, MessageEmbed, MessageReaction, User } from 'discord.js';
 import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
 import { GameGuild } from '../../index';
 
-module.exports = class TictactoeCommand extends Command {
+module.exports = class Connect4Command extends Command {
   constructor(client : CommandoClient) {
     super(client, {
-      name: 'tictactoe',
-      aliases: ['tictactoe', 'tris', 'ttt'],
-      memberName: 'tictactoe',
+      name: 'connect4',
+      aliases: ['connect4', 'c4'],
+      memberName: 'connect4',
       group: 'games',
-      description: 'partita a tris'
+      description: 'partita a forza 4'
     });
   }
 
@@ -19,7 +19,7 @@ module.exports = class TictactoeCommand extends Command {
     
     if((message.guild as GameGuild).gameData.currentGame != "") return;
 
-    (message.guild as GameGuild).gameData = {currentGame: "ttt", minPlayers: 2, maxPlayers: 2, players: [{id: message.author.id, name: await message.guild.member(message.author) ? await message.guild.member(message.author).nickname : message.author.username}]}
+    (message.guild as GameGuild).gameData = {currentGame: "c4", minPlayers: 2, maxPlayers: 2, players: [{id: message.author.id, name: await message.guild.member(message.author) ? await message.guild.member(message.author).nickname : message.author.username}]}
 
     //Filtro per le reazioni
     const filter = async (reaction : MessageReaction, user : User) => {
@@ -61,20 +61,22 @@ module.exports = class TictactoeCommand extends Command {
             return message.say("Nessuno si è unito al gruppo");
         }
 
-        var board = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        var board : number[][] = [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]];
         var gameWinner = "";
-        var reactionEmojiis = ["↖️", "⬆️", "↗️", "⬅️", "⏺️", "➡️", "↙️", "⬇️", "↘️"]
+        var reactionEmojiis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣"]
         var turn = 0;
 
         var embed = new MessageEmbed();
         embed.setColor("#ff0000");
         embed.setTitle(`🎲 ${(message.guild as GameGuild).gameData.players[0].name} - ${(message.guild as GameGuild).gameData.players[1].name}`);
-        embed.setDescription(TictactoeCommand.drawBoard(board));
+        embed.setDescription(Connect4Command.drawBoard(board));
         embed.setFooter("Inizializzazione...");
+
+        
 
         await message.say(embed).then(async (gameMessage : Message) => {
 
-          for (let i = 0; i < 9; i++) {
+          for (let i = 0; i < 7; i++) {
             await gameMessage.react(reactionEmojiis[i]);
           }
 
@@ -82,40 +84,48 @@ module.exports = class TictactoeCommand extends Command {
             var embed = new MessageEmbed();
             embed.setColor("#ff8300");
             embed.setTitle(`🎲 ${(message.guild as GameGuild).gameData.players[0].name} - ${(message.guild as GameGuild).gameData.players[1].name}`);
-            embed.setDescription(TictactoeCommand.drawBoard(board));
+            embed.setDescription(Connect4Command.drawBoard(board));
             embed.setFooter("È il turno di " + (message.guild as GameGuild).gameData.players[turn % 2].name);
 
             await gameMessage.edit(embed).then(async () => {
 
-              const reactionFilter = (reaction : MessageReaction, user : User) => {
+              //Sistema di reazioni
 
+              const reactionFilter = (reaction : MessageReaction, user : User) => {
                 var allowedEmojiis : string[] = [];
-                for (let i = 0; i < 9; i++) {
-                  if(board[i] == 0){
-                    allowedEmojiis.push(reactionEmojiis[i]);                
+                for (let i = 0; i < 7; i++) {
+                  if(board[0][i] == 0){
+                    allowedEmojiis.push(reactionEmojiis[i]);
                   }
                 }
                 return allowedEmojiis.includes(reaction.emoji.name) && user.id == (message.guild as GameGuild).gameData.players[turn % 2].id;
               };
 
-
               await gameMessage.awaitReactions(reactionFilter, { max: 1, time: 30000, errors: ['time'] }).then(async collected => {
+                //Esegui ogni turno
                 var collectedReaction = collected.first();
+                await collectedReaction.message.reactions.resolve(collected.first()).users.remove((message.guild as GameGuild).gameData.players[turn % 2].id);
 
-                collectedReaction.message.reactions.resolve(collected.first()).users.remove((message.guild as GameGuild).gameData.players[turn % 2].id).then(
-                () => collectedReaction.message.reactions.resolve(collected.first()).users.remove("820995455231197235"));
-                
+                for (let i = 0; i < 6; i++) {
+                  const j = reactionEmojiis.indexOf(collectedReaction.emoji.name);
+                  
+                  if(board[i][j] == 0 && (i == 5 ? true : board[i + 1][j] != 0)){
+                    board[i][reactionEmojiis.indexOf(collectedReaction.emoji.name)] = (turn % 2 == 0 ? 1 : 2);
+                    if(i == 0) {
+                      collectedReaction.message.reactions.resolve(collected.first()).users.remove("820995455231197235");
+                    }
+                    break;
+                  } 
+                }
 
-                board[reactionEmojiis.indexOf(collectedReaction.emoji.name)] = (turn % 2 == 0 ? 1 : 2);
-
-                //if(TictactoeCommand.checkForDraw(board)){
-                if(turn == 8){
+                if(turn == 41){
                   gameWinner = `${(message.guild as GameGuild).gameData.players[turn % 2].name} e ${(message.guild as GameGuild).gameData.players[(turn + 1) % 2].name} hanno pareggiato`;
                 }
 
-                if(TictactoeCommand.checkForWin(board, turn % 2 == 0 ? 1 : 2)){
+                if(Connect4Command.checkForWin(board, turn % 2 == 0 ? 1 : 2)){
                   gameWinner = `${(message.guild as GameGuild).gameData.players[turn % 2].name} ha vinto!`;
                 }
+
 
                 turn++;
               }).catch(async () =>{
@@ -129,7 +139,7 @@ module.exports = class TictactoeCommand extends Command {
           var endEmbed = new MessageEmbed();
           endEmbed.setColor("#00ff00");
           endEmbed.setTitle(`🎲 ${(message.guild as GameGuild).gameData.players[0].name} - ${(message.guild as GameGuild).gameData.players[1].name}`);
-          endEmbed.setDescription(TictactoeCommand.drawBoard(board));
+          endEmbed.setDescription(Connect4Command.drawBoard(board));
           endEmbed.setFooter(gameWinner);
           await gameMessage.reactions.removeAll();
           await gameMessage.edit(endEmbed);
@@ -138,105 +148,59 @@ module.exports = class TictactoeCommand extends Command {
     })
   }
 
-  static drawBoard(values : number[]) : string{
-    var board = "⬛⬛⬛⬛⬛\n"
-    for (let i = 0; i < 3; i++) {
-      board += "⬛"
-      for (let j = 0; j < 3; j++) {
-        board += TictactoeCommand.numToEmojii(values[i * 3 + j]);
+  static drawBoard(board : number[][]) : string{
+    var newBoard = "";
+    for (let i = 0; i < board.length; i++) {
+      newBoard += "⬛"
+      for (let j = 0; j < board[i].length; j++) {
+        newBoard += Connect4Command.numToEmojii(board[i][j]);
       }
-      board += "⬛\n";
+      newBoard += "⬛\n"
     }
-    board += "⬛⬛⬛⬛⬛"
-    return board;
+    newBoard += "⬛⬛⬛⬛⬛⬛⬛⬛⬛";
+    return newBoard;
   }
 
   static numToEmojii(value : number) : string{
-    return value == 0 ? "⬜" : (value == 1 ? "❌" : "🔵")
+    return value == 0 ? "⬜" : (value == 1 ? "🟡" : "🔵")
   }
 
-  static checkForWin(values : number[], playerToCheck : number) : boolean{
-    //Check for rows
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if(values[i * 3 + j] != playerToCheck) break;
-        if(j == 2) return true;
+  static checkForWin(board : number[][], player : number) : boolean{
+
+    //Controllo delle righe
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < 4; j++) {
+        if(board[i][j] == player && board[i][j + 1] == player && board[i][j + 2] == player && board[i][j + 3] == player)
+          return true;
       }
     }
 
-    //Check columns
-    for (let i = 0; i < 3; i++) {
+    //Controllo delle colonne
+
+    for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < 3; j++) {
-        if(values[i + j * 3] != playerToCheck) break;
-        if(j == 2) return true;
-      }
+        if(board[j][i] == player && board[j + 1][i] == player && board[j + 2][i] == player && board[j + 3][i] == player)
+          return true;
+      }      
     }
 
-    //Check diagonal
-    if(values[0] == playerToCheck && values[4] == playerToCheck && values[8] == playerToCheck)
-      return true;
+    //Controllo diagonale destra
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 4; j++) {
+        if(board[i][j] == player && board[i + 1][j + 1] == player && board[i + 2][j + 2] == player && board[i + 3][j + 3] == player)
+          return true;
+      }      
+    }
 
-    if(values[2] == playerToCheck && values[4] == playerToCheck && values[6] == playerToCheck)
-      return true;
+    //Controllo diagonale sinistra
+    for (let i = 0; i < 3; i++) {
+      for (let j = 3; j < 7; j++) {
+        if(board[i][j] == player && board[i + 1][j - 1] == player && board[i + 2][j - 2] == player && board[i + 3][j - 3] == player)
+          return true;
+      }      
+    }
 
     return false;
-  }
-
-  static checkForDraw(values : number[]) : boolean{
-
-    var tempValues = values;
-
-    //Check for rows
-    for (let i = 0; i < 3; i++) {
-
-      var currentPiece = values[i * 3];
-
-      for (let j = 0; j < tempValues.length; j++) {
-         if(tempValues[j] == 0) tempValues[j] = currentPiece;
-      }
-      
-      for (let j = 0; j < 3; j++) {
-        if(values[i * 3 + j] != currentPiece)
-          return false;
-      }
-    }
-
-    var tempValues = values;
-
-    //Check columns
-    for (let i = 0; i < 3; i++) {
-
-      var currentPiece = values[i];
-
-      for (let j = 0; j < tempValues.length; j++) {
-        if(tempValues[j] == 0) tempValues[j] = currentPiece;
-      }
-
-      for (let j = 0; j < 3; j++) {
-        if(values[i + j * 3] != currentPiece)
-          return false;
-      }
-    }
-
-    var tempValues = values;
-
-    for (let i = 0; i < tempValues.length; i++) {
-      if(tempValues[i] == 0) tempValues[i] = values[0];
-    }
-
-    //Check diagonal
-    if(tempValues[4] == values[0] && tempValues[8] == values[0])
-      return false;
-
-    var tempValues = values;
-
-    for (let i = 0; i < tempValues.length; i++) {
-      if(tempValues[i] == 0) tempValues[i] = values[2];
-    }
-
-    if(tempValues[4] == values[2] && tempValues[6] == values[2])
-      return false;
-
-    return true;
   }
 };
