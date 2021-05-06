@@ -27,7 +27,7 @@ module.exports = class TanksCommand extends Command {
         var testForUser = false;
         for(let element of (message.guild as GameGuild).gameData.players) {
             if(element.id == user.id) {
-                //testForUser = true;
+                testForUser = true;
                 break;
             }
         }
@@ -63,13 +63,8 @@ module.exports = class TanksCommand extends Command {
 
     collector.on("remove", async (reaction : MessageReaction, user : User) => {
       if(reaction.emoji.name == "✅"){
-        var removed = false;  //Soluzione temporanea per il testing prima del deploy rimuovere la condizione
         (message.guild as GameGuild).gameData.players = (message.guild as GameGuild).gameData.players.filter(function(obj) {
-          if(!removed){
-            removed = true;
-            return obj.id != user.id;
-          }
-          return true;
+          return obj.id != user.id;
         });
 
         if(toReply.content.includes("♿")){
