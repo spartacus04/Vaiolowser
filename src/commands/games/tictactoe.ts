@@ -108,7 +108,6 @@ module.exports = class TictactoeCommand extends Command {
 
                 board[reactionEmojiis.indexOf(collectedReaction.emoji.name)] = (turn % 2 == 0 ? 1 : 2);
 
-                //if(TictactoeCommand.checkForDraw(board)){
                 if(turn == 8){
                   gameWinner = `${(message.guild as GameGuild).gameData.players[turn % 2].name} e ${(message.guild as GameGuild).gameData.players[(turn + 1) % 2].name} hanno pareggiato`;
                 }
@@ -180,63 +179,5 @@ module.exports = class TictactoeCommand extends Command {
       return true;
 
     return false;
-  }
-
-  static checkForDraw(values : number[]) : boolean{
-
-    var tempValues = values;
-
-    //Check for rows
-    for (let i = 0; i < 3; i++) {
-
-      var currentPiece = values[i * 3];
-
-      for (let j = 0; j < tempValues.length; j++) {
-         if(tempValues[j] == 0) tempValues[j] = currentPiece;
-      }
-      
-      for (let j = 0; j < 3; j++) {
-        if(values[i * 3 + j] != currentPiece)
-          return false;
-      }
-    }
-
-    var tempValues = values;
-
-    //Check columns
-    for (let i = 0; i < 3; i++) {
-
-      var currentPiece = values[i];
-
-      for (let j = 0; j < tempValues.length; j++) {
-        if(tempValues[j] == 0) tempValues[j] = currentPiece;
-      }
-
-      for (let j = 0; j < 3; j++) {
-        if(values[i + j * 3] != currentPiece)
-          return false;
-      }
-    }
-
-    var tempValues = values;
-
-    for (let i = 0; i < tempValues.length; i++) {
-      if(tempValues[i] == 0) tempValues[i] = values[0];
-    }
-
-    //Check diagonal
-    if(tempValues[4] == values[0] && tempValues[8] == values[0])
-      return false;
-
-    var tempValues = values;
-
-    for (let i = 0; i < tempValues.length; i++) {
-      if(tempValues[i] == 0) tempValues[i] = values[2];
-    }
-
-    if(tempValues[4] == values[2] && tempValues[6] == values[2])
-      return false;
-
-    return true;
   }
 };
