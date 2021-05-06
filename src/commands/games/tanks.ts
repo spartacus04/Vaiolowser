@@ -1,6 +1,5 @@
 import { Message, MessageEmbed, MessageReaction, ReactionCollector, User } from 'discord.js';
 import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
-import { triggerAsyncId } from 'node:async_hooks';
 import { GameGuild } from '../../index';
 
 module.exports = class TanksCommand extends Command {
