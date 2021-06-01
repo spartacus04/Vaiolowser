@@ -198,7 +198,8 @@ module.exports = class TanksCommand extends Command {
 
     gameColl.on('collect', (reaction, user) => {
 
-      reaction.users.remove(user.id);
+      if(user.id != gameMessage.author.id)
+        reaction.users.remove(user.id);
 
       switch(reaction.emoji.name){
         case '⬆️':
