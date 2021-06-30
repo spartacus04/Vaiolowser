@@ -1,9 +1,10 @@
-/* eslint-disable no-empty */
 import { CommandoClient, CommandoGuild } from 'discord.js-commando-it';
 import firebase from 'firebase';
 require("firebase/firestore");
 import * as path from 'path';
-import Discord, { Structures, TextChannel } from 'discord.js';
+import Discord, { Channel, Structures, TextChannel } from 'discord.js';
+import * as Cron from "cron";
+import * as fs from 'fs';
 
 
 export class GameGuild extends CommandoGuild {
@@ -131,5 +132,34 @@ client.on('message', message => {
   }
 });
 
+async function minecraftServerBuildTheme(){
+  let buildbBattleThemes = fs.readFileSync(
+    'resources/buildBattleThemes.json',
+    'utf8'
+  );
+
+  let battleTheme = buildbBattleThemes[Math.floor(Math.random() * (buildbBattleThemes.length + 1))];
+
+  const doc = firestore.collection('Build-Battle-Theme');
+
+  await doc.add({theme: battleTheme});
+
+  const channel = client.channels.cache.find(channel => channel.id === "821676557465681920");
+
+  var embed = new Discord.MessageEmbed();
+  embed.setAuthor('Gara di building');
+  embed.setColor('#00ff00');
+  embed.setTitle(battleTheme);
+  embed.attachFiles(['resources/images/serverImages/Bricks.png']);
+  embed.setThumbnail('attachment://Bricks.png');
+  embed.setDescription("Il tema della settimana è " + battleTheme);
+  var orario = new Date();
+  embed.setFooter(`Inviato alle ${orario.getHours() + 1}:${orario.getMinutes()}`);
+
+  await (channel as TextChannel).send(embed);
+}
+
+let buildBattle = new Cron.CronJob('00 00 10 * * 1', minecraftServerBuildTheme);
+buildBattle.start();
 
 client.login(process.env.token);
