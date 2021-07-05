@@ -159,7 +159,7 @@ async function minecraftServerBuildTheme(){
   await (channel as TextChannel).send(embed);
 }
 
-//let buildBattle = new Cron.CronJob('00 00 9 * * 1', minecraftServerBuildTheme);
-//buildBattle.start();
+let buildBattle = new Cron.CronJob('00 00 9 * * 1', minecraftServerBuildTheme);
+buildBattle.start();
 
 client.login(process.env.token);
