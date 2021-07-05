@@ -133,10 +133,10 @@ client.on('message', message => {
 });
 
 async function minecraftServerBuildTheme(){
-  let buildbBattleThemes = fs.readFileSync(
+  let buildbBattleThemes = JSON.parse(fs.readFileSync(
     'resources/buildBattleThemes.json',
     'utf8'
-  );
+  ));
 
   let battleTheme = buildbBattleThemes[Math.floor(Math.random() * (buildbBattleThemes.length + 1))];
 
@@ -159,7 +159,7 @@ async function minecraftServerBuildTheme(){
   await (channel as TextChannel).send(embed);
 }
 
-let buildBattle = new Cron.CronJob('00 00 9 * * 1', minecraftServerBuildTheme);
-buildBattle.start();
+//let buildBattle = new Cron.CronJob('00 00 9 * * 1', minecraftServerBuildTheme);
+//buildBattle.start();
 
 client.login(process.env.token);
