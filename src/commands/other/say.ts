@@ -1,34 +1,30 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
 
-module.exports = class SayCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'say',
-      aliases: ['make-me-say', 'print'],
-      memberName: 'say',
-      group: 'other',
-      description: 'Ripeto cio che dici',
-      args: [
-        {
-          key: 'text',
-          prompt: 'Cosa vuoi farmi ripetere?',
-          type: 'string'
-        }
-      ]
-    });
-  }
+const sayCommand : Command = {
+	name: 'say',
+	description: 'Ripeto cio che scrivi',
+	args: [
+		{
+			key: 'text',
+			label: 'testo da ripetere',
+			prompt: 'Cosa vuoi farmi ripetere?',
+			type: 'string',
+		},
+	],
 
-  run(message : CommandoMessage, { text } : { text : string }) {
-    let bababui = text;
-    if(text.toLowerCase() == "vaiolowser bimbo fortnite"){
-      bababui = "*abortoad gay spagnolo*";
-    }
-    else if(text.toLowerCase() == "sessoforte"){
-      bababui = "*con jack*";
-    }
-    else if(text.toLowerCase() == "esteban gay"){
-      bababui = "*Ebbene si ragazzo*";
-    }
-    return message.say(`*${bababui}*`);
-  }
+	run(message : Message, { text } : { text : string }) {
+		if(text.toLowerCase() == 'vaiolowser bimbo fortnite') {
+			return message.channel.send('*abortoad gay spagnolo*');
+		}
+		if(text.toLowerCase() == 'sessoforte') {
+			return message.channel.send('*con Jack*');
+		}
+		if(text.toLowerCase() == 'esteban gay') {
+			return message.channel.send('*ebbene si ragazzo*');
+		}
+		return message.channel.send(text);
+	},
 };
+
+module.exports = sayCommand;

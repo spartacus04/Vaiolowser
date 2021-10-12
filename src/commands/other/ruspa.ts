@@ -1,22 +1,14 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
 
-module.exports = class RandomNumberCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'ruspa',
-      aliases: ['ruspa;escavatore'],
-      memberName: 'ruspa',
-      group: 'other',
-      description: 'Invia una ruspa'
-    });
-  }
+const ruspaCommand : Command = {
+	name: 'ruspa',
+	description: 'Invia una ruspa',
 
-  run(message : CommandoMessage) {
-    return message.channel.send({
-        files: [{
-            attachment: "https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/ruspa.jpeg",
-            name: 'ruspa.jpeg'
-        }]
-    })
-  }
+	async run(message : Message) {
+		await message.channel.sendTyping();
+		await message.channel.send({ files: ['resources/images/ruspa.jpeg'] });
+	},
 };
+
+module.exports = ruspaCommand;

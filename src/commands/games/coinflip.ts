@@ -1,19 +1,17 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
+import { isGameChannel, RandomChance } from '../../util';
 
-module.exports = class CoinflipCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'coinflip',
-      aliases: ['coinflip'],
-      memberName: 'coinflip',
-      group: 'games',
-      description: 'testa o croce?'
-    });
-  }
+const coinflipCommand : Command = {
+	name: 'coinflip',
+	aliases: ['cf'],
+	description: 'Gioca a testa o croce',
 
-  run(message : CommandoMessage) {
-    if(message.channel.id != "830519380931510282") return;
-    
-    return message.say(Math.random() > 0.5 ? "È uscita testa!" : "È uscita croce!");
-  }
+	async run(message : Message) {
+		if(!isGameChannel(message.channel.id)) return;
+
+		return message.channel.send(RandomChance(50) ? 'È uscita testa!' : 'È uscita croce!');
+	},
 };
+
+module.exports = coinflipCommand;

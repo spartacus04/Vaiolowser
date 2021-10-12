@@ -1,46 +1,39 @@
+import { Command } from '../../config';
+import { Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
-import { MessageEmbed, TextChannel } from 'discord.js';
-import { URL } from 'url';
+import { logger } from '../../logger';
 
+const catCommand : Command = {
+	name: 'cat',
+	aliases: ['catpic', 'rock'],
+	description: 'Risponde con un immagine di un sasso',
 
-module.exports = class CatCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'cat',
-      aliases: ['cat-pic', 'cats', 'rock'],
-      group: 'other',
-      memberName: 'cat',
-      description: 'Risponde con un immagine di un sasso',
-      throttling: {
-        usages: 2,
-        duration: 10
-      }
-    });
-  }
+	async run(message : Message) {
+		try {
+			await message.channel.sendTyping();
+			const res = await fetch('https://www.reddit.com/r/geologyporn.json?sort=top&t=week&limit=800');
+			const data = await res.json();
+			logger.verbose(data);
 
-  run(message : CommandoMessage) {
-    var query = new URL(`https://www.reddit.com/r/geologyporn.json?sort=hot&t=week`),
-      params = {limit: 800}
-    Object.keys(params).forEach(key => query.searchParams.append(key, ((800 as any) as string)))
-    return fetch(query)
-    .then(body => body.json())
-    .then((body) => {
-      const allowed = (message.channel as TextChannel).nsfw ? body.data.children : body.data.children.filter((post : any)=> !post.data.over_18);
-      if (!allowed.length) return message.channel.send('I meme golosi sono finiti, torna a casa ora');
-      const randomnumber = Math.floor(Math.random() * allowed.length)
-      const embed = new MessageEmbed();
-      embed
-      .setColor(0x00A2E8)
-      .setTitle(allowed[randomnumber].data.title)
-      .setImage(allowed[randomnumber].data.url)
-      .setFooter(`Postato da u/${allowed[randomnumber].data.author} su r/geologyporn (${allowed[randomnumber].data.ups} upvotes)`)
-      message.channel.stopTyping();
-      message.channel.send(embed)
-    }).catch(function (err){
-      console.log(err);
-      return message.say("c'è stato un errore");
-    });
-   
-  }
+			const allowed : any[] = data.data.children.filter((post : any) => !post.data.over_18);
+
+			if(!allowed.length) return message.channel.send('I meme golosi sono finiti, torna a casa ora');
+
+			const postData = allowed[Math.floor(Math.random() * allowed.length)].data;
+
+			const embed = new MessageEmbed()
+				.setColor('#00A2E8')
+				.setTitle(postData.title)
+				.setImage(postData.url)
+				.setFooter(`Postato da u/${postData.author} su r/geologyporn (${postData.ups} upvotes)`);
+
+			await message.channel.send({ embeds : [ embed ] });
+		}
+		catch (err) {
+			logger.error(err);
+			await message.channel.send('Il gatto è gay a quanto pare');
+		}
+	},
 };
+
+module.exports = catCommand;

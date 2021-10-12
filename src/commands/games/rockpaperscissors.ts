@@ -1,81 +1,43 @@
-import { MessageEmbed, MessageReaction, User } from 'discord.js';
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
-import { GameGuild } from '../../index';
+import { Command } from '../../config';
+import { Message, MessageEmbed } from 'discord.js';
+import { isGameChannel, createButtonsRow, singleButtonInput, RandomChance } from '../../util';
 
-module.exports = class RockpaperscissorsCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'rockpaperscissors',
-      aliases: ['rockpaperscissors', 'rps'],
-      memberName: 'rockpaperscissors',
-      group: 'games',
-      description: 'Sasso carta o forbice?'
-    });
-  }
+const rpsCommand : Command = {
+	name: 'rockpaperscissors',
+	aliases: ['rps'],
+	description: 'Gioca a sasso carta o forbice',
 
-  async run(message : CommandoMessage) {
-    if(message.channel.id != "830519380931510282") return;
-    
-    if((message.guild as GameGuild).gameData.currentGame != "") return;
+	async run(message : Message) {
+		if(!isGameChannel(message.channel.id)) return;
 
-    (message.guild as GameGuild).gameData = {currentGame: "rps", minPlayers: 1, maxPlayers: 1, players: [{id: message.author.id, name: message.author.avatar}]}
+		const computerMoves = ['✂️', '🪨', '📰', '✂️', '🪨'];
 
-    var toReact = await message.say("Sasso carta o forbice?");
+		const component = createButtonsRow(['🪨', '📰', '✂️'], [1, 2, 3]);
 
-    toReact.react("🪨")
-    .then(() => toReact.react("📰"))
-    .then(() => toReact.react("✂️"));
-    
+		const embed = new MessageEmbed().setTitle('Sasso, carta o forbice?').setDescription('Stai scegliendo la tua mossa');
 
-    var res : number;
-    do{
-      res = Math.floor(Math.random() * 3);
-    }while(res == 0)
+		const reply = await message.reply({ embeds: [ embed ], components: [ component ] });
 
-    const emojiFilter = (reaction : MessageReaction, user : User) => {
-      return ['🪨', '📰', '✂️'].includes(reaction.emoji.name) && user.id === message.author.id;
-    };
+		const id = await singleButtonInput(reply, message.author.id);
 
-    return await toReact.awaitReactions(emojiFilter, { max: 1, time: 20000, errors: ['time'] }).then(function(reaction) {
-      const first = reaction.first();
-      const emojii = first.emoji.name;
-      var embed = new MessageEmbed();
+		if(id == '-1') {
+			const endEmbed = new MessageEmbed().setTitle('Sasso, carta o forbice?').setDescription(`${message.author.username} ha perso! Non ha risposto in tempo`);
+			return await reply.edit({ embeds : [ endEmbed ] });
+		}
 
-      var sum = res - RockpaperscissorsCommand.emojiToNum(emojii);
-      
-      if(sum == 0){
-        embed.setTitle("Hai pareggiato");
-        embed.setColor("#ffff00");
-      }
-      else if(sum == -1 || sum == 2){
-        embed.setTitle("Hai Vinto!");
-        embed.setColor("#00ff00");
-      }
-      else{
-        embed.setTitle("Hai perso...");
-        embed.setColor("#ff0000");
-      }
+		if(RandomChance(33)) {
+			const endEmbed = new MessageEmbed().setTitle('Sasso, carta o forbice').setDescription(`${message.author.username} ha vinto!\n${computerMoves[+id]} - ${computerMoves[+id - 1]}`);
+			return await reply.edit({ embeds: [ endEmbed ], components: [] });
+		}
+		else if(RandomChance(50)) {
+			const endEmbed = new MessageEmbed().setTitle('Sasso, carta o forbice').setDescription(`${message.author.username} ha pareggiato!\n${computerMoves[+id]} - ${computerMoves[+id]}`);
+			return await reply.edit({ embeds: [ endEmbed ], components: [] });
+		}
+		else{
+			const endEmbed = new MessageEmbed().setTitle('Sasso, carta o forbice').setDescription(`${message.author.username} ha perso!\n${computerMoves[+id]} - ${computerMoves[+id + 1]}`);
+			return await reply.edit({ embeds: [ endEmbed ], components: [] });
+		}
+	},
+};
 
-      embed.setDescription(`ho scelto ${RockpaperscissorsCommand.numToEmoji(res)}.\n${RockpaperscissorsCommand.numToEmoji(res)} VS ${emojii}`);
-      (message.guild as GameGuild).gameData.currentGame = "";
-      return message.say(embed);
-
-    }).catch(collected => {
-      (message.guild as GameGuild).gameData.currentGame = "";
-      message.delete();
-      return toReact.delete();
-    });
-  }
-
-  static numToEmoji(num : number) : string{
-    if(num == 1) return "🪨";
-    if(num == 2) return "📰";
-    if(num == 3) return "✂️";
-  }
-
-  static emojiToNum(num : string) : number{
-    if(num == "🪨") return 1;
-    if(num == "📰") return 2;
-    if(num == "✂️") return 3;
-  }
-}
+module.exports = rpsCommand;

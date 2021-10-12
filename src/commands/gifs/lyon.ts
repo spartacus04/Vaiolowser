@@ -1,25 +1,27 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command, TENOR_KEY } from '../../config';
+import { Message } from 'discord.js';
 import fetch from 'node-fetch';
-const tenorAPI = process.env.tenorAPI;
+import { logger } from '../../logger';
 
-module.exports = class RandomNumberCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'lyon',
-      aliases: ['lyon', 'lyonwgf'],
-      memberName: 'lyon',
-      group: 'other',
-      description: 'Invia una gif di lyon wgf'
-    });
-  }
+const lyonCommand : Command = {
+	name: 'lyon',
+	aliases: ['lyonwgf', 'lyon-wgf'],
+	description: 'Invia una gif di lyon',
 
-  run(message : CommandoMessage) {
-    return fetch(`https://api.tenor.com/v1/random?key=${tenorAPI}&q=lyonwgf&limit=1`)
-      .then(res => res.json())
-      .then(json => {return message.say(json.results[0].url)})
-      .catch(err => {
-        console.error(err);
-        return message.say('Non ho trovato una gif <:tasbien:712705754678951987>');
-      });
-  }
+	async run(message : Message) {
+		await message.channel.sendTyping();
+		try {
+			const res = await fetch(`https://api.tenor.com/v1/random?key=${TENOR_KEY}&q=saitama&limit=1`);
+			const data = await res.json();
+			logger.verbose(data);
+			await message.channel.send(data.results[0].url);
+		}
+		catch (err) {
+			message.channel.send('Non ho trovato una gif <:tasbien:712705754678951987>');
+			logger.error(err);
+		}
+
+	},
 };
+
+module.exports = lyonCommand;

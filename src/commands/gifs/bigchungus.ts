@@ -1,22 +1,15 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
 
-module.exports = class RandomNumberCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'bigchungus',
-      aliases: ['bigchungus'],
-      memberName: 'bigchungus',
-      group: 'other',
-      description: 'Invia un big chungus'
-    });
-  }
+const bigchungusCommand : Command = {
+	name: 'bigchungus',
+	aliases: ['big-chungus'],
+	description: 'Invia un big chungus',
 
-  run(message : CommandoMessage) {
-    return message.channel.send({
-        files: [{
-            attachment: "https://tenor.com/brMsh.gif",
-            name: 'brMsh.gif'
-        }]
-    })
-  }
+	async run(message : Message) {
+		await message.channel.sendTyping();
+		await message.channel.send({ files: ['resources/gifs/bigchungus.gif'] });
+	},
 };
+
+module.exports = bigchungusCommand;

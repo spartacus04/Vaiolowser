@@ -1,22 +1,15 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
 
-module.exports = class RandomNumberCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'hentai',
-      aliases: ['hentai;dio'],
-      memberName: 'hentai',
-      group: 'other',
-      description: 'Invia una hentai'
-    });
-  }
+const hentaiCommand : Command = {
+	name: 'hentai',
+	aliases: ['dio'],
+	description: 'Invia un hentai',
 
-  run(message : CommandoMessage) {
-    return message.channel.send({
-        files: [{
-            attachment: "https://raw.githubusercontent.com/spartacus04/Vaiolowser/master/resources/images/Dio.jpeg",
-            name: 'Dio.jpeg'
-        }]
-    })
-  }
+	async run(message : Message) {
+		await message.channel.sendTyping();
+		await message.channel.send({ files: ['resources/images/dio.jpeg'] });
+	},
 };
+
+module.exports = hentaiCommand;

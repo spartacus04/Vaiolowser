@@ -1,20 +1,17 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message, MessageActionRow, MessageButton } from 'discord.js';
 
-module.exports = class WhoMadeMeCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'whomademe',
-      aliases: ['bot-maker', 'bot-creator'],
-      memberName: 'whomademe',
-      group: 'other',
-      description: "Risponde con il nome del creatore"
-    });
-  }
+const whoMadeMeCommand : Command = {
+	name: 'whomademe',
+	description: 'Invia info riguardo al creatore',
 
-  run(message : CommandoMessage) {
-    const cinabroId = message.guild.emojis.cache.find(emoji => emoji.name === "cinabro") 
-    return message.say(
-      `Mio padre <@!556091106358460417> e mio zio <@!465954478852669460> mi hanno creato con ${cinabroId} Altre info a https://github.com/spartacus04/Vaiolowser`
-    );
-  }
+	async run(message : Message) {
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton().setLabel('Altre info').setStyle('LINK').setURL('https://github.com/spartacus04/Vaiolowser'),
+			);
+		return await message.channel.send({ content: 'Mio padre @spartacus04#9422 mi ha creato con :heart:', components: [ row ] });
+	},
 };
+
+module.exports = whoMadeMeCommand;

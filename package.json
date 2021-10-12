@@ -1,35 +1,34 @@
 {
   "name": "vaiolowser",
-  "version": "1.0.0",
-  "description": "Un bot meno autistico",
+  "version": "4.0.0",
+  "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "test": "npm run tsc && node dist/test.js",
-    "postinstall": "npm run tsc",
-    "tsc": "tsc"
+    "dev": "ts-node-dev --transpile-only --clear src/index.ts",
+    "readme": "ts-node-dev --transpile-only --clear scripts/rewriteReadme.ts",
+    "lint": "eslint . --ext .ts",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
-  "author": "Alessandro Sist || Andrea Bonari",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "cron": "^1.8.2",
-    "discord.js": "^12.5.3",
-    "discord.js-commando-it": "^0.12.4",
-    "firebase": "^8.4.2",
-    "node-fetch": "^2.6.1",
-    "typescript": "^4.2.4"
-  },
   "devDependencies": {
-    "@types/cron": "^1.7.2",
-    "@types/node": "^14.14.43",
-    "@types/node-fetch": "^2.5.10"
+    "@types/cron": "^1.7.3",
+    "@types/node": "^16.7.10",
+    "@types/node-fetch": "^2.5.12",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "ts-node-dev": "^1.1.8"
   },
-  "engines": {
-    "node": ">=12.14.1",
-    "npm": ">=6.13.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spartacus04/Vaiolowser.git"
+  "dependencies": {
+    "@firebase/firestore": "^3.1.0",
+    "cron": "^1.8.2",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "firebase": "^9.1.1",
+    "node-fetch": "^2.6.1",
+    "winston": "^3.3.3"
   }
 }

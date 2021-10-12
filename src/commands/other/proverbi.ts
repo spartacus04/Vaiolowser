@@ -1,31 +1,26 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
-import { MessageEmbed } from 'discord.js';
-import * as fs from 'fs';
+import { Command } from '../../config';
+import { Message, MessageEmbed } from 'discord.js';
+import { logger } from '../../logger';
+import fs from 'fs';
 
-module.exports = class MotivationCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'proverbio',
-      aliases: ['proverbio'],
-      group: 'other',
-      memberName: 'proverbio',
-      description: 'dice un proverbio italiano'
-    });
-  }
-  run(message : CommandoMessage) {
+const proverbiCommand : Command = {
+	name: 'proverbi',
+	aliases: ['proverbiitaliani', 'proverbi-italiani'],
+	description: 'Invia info riguardo al creatore',
 
-    const jsonQuotes = fs.readFileSync(
-      'resources/proverbiItaliani.json',
-      'utf8'
-    );
-    const quoteArray = JSON.parse(jsonQuotes).quotes;
+	async run(message : Message) {
+		const quotes = JSON.parse(fs.readFileSync('resources/quotes/proverbi.json', 'utf8')).quotes;
 
-    const randomQuote =
-      quoteArray[Math.floor(Math.random() * quoteArray.length)];
+		const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-    const quoteEmbed = new MessageEmbed()
-      .setDescription(randomQuote.text)
-      .setColor('#ff003c');
-    return message.channel.send(quoteEmbed);
-  }
+		logger.info(`sending quote: ${randomQuote.text}`);
+
+		const quoteEmbed = new MessageEmbed()
+			.setTitle(randomQuote.text)
+			.setColor('#ff003c');
+
+		return message.channel.send({ embeds : [ quoteEmbed ] });
+	},
 };
+
+module.exports = proverbiCommand;

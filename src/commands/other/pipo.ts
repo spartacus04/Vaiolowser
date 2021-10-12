@@ -1,29 +1,25 @@
-import { CommandoClient, CommandoMessage, Command } from 'discord.js-commando-it';
+import { Command } from '../../config';
+import { Message } from 'discord.js';
 
-module.exports = class SayCommand extends Command {
-  constructor(client : CommandoClient) {
-    super(client, {
-      name: 'pipo',
-      aliases: ['pipo', 'pene'],
-      memberName: 'pipo',
-      group: 'other',
-      description: 'pipo',
-      args: [
-        {
-          key: 'lenght',
-          prompt: 'Inserisci la lunghezza',
-          type: 'integer',
-          max: 1998
-        }
-      ]
-    });
-  }
+const pipoCommand : Command = {
+	name: 'pipo',
+	description: 'Invia un gigante omofobico',
+	args: [
+		{
+			key: 'lenght',
+			label: 'lunghezza del pipo',
+			prompt: 'Inserisci la lunghezza del pipo',
+			type: 'integer',
+		},
+	],
 
-  run(message : CommandoMessage, { lenght } : { lenght : number }) {
-    var p : string = "";
-    for (let i = 0; i < lenght; i++) {
-      p += "=";
-    }
-    return message.say("8" + p + "D");
-  }
+	async run(message : Message, { lenght } : { lenght : number }) {
+		let p = '';
+		for (let i = 0; i < lenght; i++) {
+			p += '=';
+		}
+		return message.channel.send('8' + p + 'D');
+	},
 };
+
+module.exports = pipoCommand;

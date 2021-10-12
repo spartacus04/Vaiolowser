@@ -19,5 +19,6 @@
       "ES6",
       "esnext"
     ]
-  }
+  },
+  "exclude": ["node_modules", "typings", "dist", "scripts"]
 }
