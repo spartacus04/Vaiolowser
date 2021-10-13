@@ -12,6 +12,7 @@ Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molt
 
 ### games
   - m.coinflip/cf : Gioca a testa o croce
+  - m.connect4/c4 : Gioca a forza quattro
   - m.rockpaperscissors/rps : Gioca a sasso carta o forbice
   - m.tris/ttt : Gioca a tris
 
