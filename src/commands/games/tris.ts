@@ -18,7 +18,7 @@ const trisCommand : Command = {
 				leaderName: message.author.username,
 				minPlayers: 2,
 				maxPlayers: 2,
-				debug: true,
+				debug: false,
 			});
 		if(players.length == 0) {
 			return;
