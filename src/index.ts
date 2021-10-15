@@ -25,12 +25,14 @@ const init = async () => {
 
 	await forEachParallel(Listeners, async listenerFile => {
 		logger.info(`Loading Listener ${listenerFile}`);
-		await import(`./listeners/${listenerFile}`);
+		if(listenerFile != 'firebaseListen.ts') await import(`./listeners/${listenerFile}`);
 	});
 
 	logger.info('Fully loaded listeners');
 
-	client.login(DISCORD_TOKEN);
+	await client.login(DISCORD_TOKEN);
+
+	await import('./listeners/firebaseListen');
 };
 
 init();
