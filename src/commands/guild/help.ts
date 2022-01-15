@@ -8,7 +8,7 @@ const helpCommand : Command = {
 	async run(message : Message) {
 		const row = new MessageActionRow()
 			.addComponents(
-				new MessageButton().setLabel('Comandi').setStyle('LINK').setURL('https://spartacus04.github.io/Malario/'),
+				new MessageButton().setLabel('Comandi').setStyle('LINK').setURL('https://spartacus04.github.io/Vaiolowser/'),
 			);
 		return await message.channel.send({ content: 'Puoi controllare i miei comandi a questo link', components: [ row ] });
 	},

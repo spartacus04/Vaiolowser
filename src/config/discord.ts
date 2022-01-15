@@ -17,16 +17,12 @@ export interface Command{
 
     args?: argument[],
 
-    run : (message : Message & eMessage, args ?: any) => Promise<any>
+    run : (message : Message, args ?: any) => Promise<any>
 }
 
 export class eClient extends Client {
     commands: Command[];
     groups: string[];
-}
-
-export class eMessage extends Message {
-    client : eClient;
 }
 
 export const client = new eClient({
