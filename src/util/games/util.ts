@@ -1,4 +1,4 @@
-import { CollectorFilter, Message, MessageComponentInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import { CollectorFilter, Interaction, Message, MessageEmbed, TextChannel } from 'discord.js';
 import { createButtonsRow } from '.';
 import { IN_PROD } from '../../config';
 
@@ -35,14 +35,14 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 
 		const message = await channel.send({ embeds: [embed], components: [actionRow] });
 
-		const filter : CollectorFilter<[MessageComponentInteraction]> = (i : MessageComponentInteraction) : boolean => {
-			if(i.customId == '0') {
+		const filter : CollectorFilter<[Interaction]> = (i : Interaction) : boolean => {
+			if(i.id == '0') {
 				if(!players.includes(i.user.id) || config.debug) return true;
 			}
-			else if(i.customId == '1') {
+			else if(i.id == '1') {
 				if(players.includes(i.user.id)) return true;
 			}
-			else if(i.customId == '2') {
+			else if(i.id == '2') {
 				if(players[0] == i.user.id) return true;
 			}
 			return false;
@@ -70,7 +70,7 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 
 		collector.on('collect', async i => {
 			// Entrare nel gruppo
-			if(i.customId == '0') {
+			if(i.id == '0') {
 				players.push(i.user.id);
 				playerNames.push(i.user.username);
 				if(players.length == config.maxPlayers) {
@@ -81,7 +81,7 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 			}
 
 			// Uscire dal gruppo
-			if(i.customId == '1') {
+			if(i.id == '1') {
 				if(players.indexOf(i.user.id) == 0) {
 					players.splice(0, players.length);
 					return collector.stop();
@@ -93,7 +93,7 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 			}
 
 			// Avviare la partita
-			if(i.customId == '2') {
+			if(i.id == '2') {
 				if(players.length >= config.minPlayers) {
 					collector.stop();
 				}
