@@ -36,7 +36,6 @@ onSnapshot(col, async snapshot => {
 				await deleteDoc(doc(firestore, 'Vaiolowser-Ngrok-Ips', obj.doc.id));
 				obj.doc.data().remove;
 			}
-
 		});
 	}
 	else {
