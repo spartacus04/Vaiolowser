@@ -1,8 +1,8 @@
 import { CollectorFilter, Message, MessageComponentInteraction, MessageEmbed, TextChannel } from 'discord.js';
 import { createButtonsRow } from '.';
-import { IN_PROD } from '../../config';
+import { NODE_ENV } from '../../config';
 
-export const isGameChannel = (channelId : string) : boolean => IN_PROD ? channelId == '830519380931510282' : true;
+export const isGameChannel = (channelId : string) : boolean => NODE_ENV == 'production' ? channelId == '830519380931510282' : true;
 
 export const RandomChance = (percent : number) : boolean => Math.random() * 100 < percent;
 
