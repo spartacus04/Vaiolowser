@@ -21,8 +21,8 @@ export interface Command{
 }
 
 export class eClient extends Client {
-    commands: Command[];
-    groups: string[];
+	commands: Command[];
+	groups: string[];
 }
 
 export const client = new eClient({

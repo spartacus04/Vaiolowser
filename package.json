@@ -1,4 +1,3 @@
-
 {
   "name": "vaiolowser",
   "version": "4.0.0",
@@ -24,12 +23,14 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
-    "@firebase/firestore": "^3.4.3",
+    "@firebase/firestore": "^2.4.1",
     "cron": "^1.8.2",
     "discord.js": "^13.6.0",
-    "dotenv": "^14.2.0",
+    "dotenv": "^14.3.2",
     "firebase": "^9.6.3",
+    "flatted": "^3.2.5",
     "node-fetch": "<3.*",
-    "winston": "^3.4.0"
+    "winston": "^3.5.0",
+    "winston-daily-rotate-file": "^4.6.0"
   }
 }
