@@ -61,17 +61,17 @@ const connect4Command : Command = {
 		const embed = new MessageEmbed()
 			.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
 			.setDescription(text)
-			.setFooter(`È il turno di ${playerNames[turn]}`)
+			.setFooter({ text: `È il turno di ${playerNames[turn]}` })
 			.setColor('GREEN');
 
 		if(turn == -1) {
-			embed.setFooter(`${players[turn % 2]} non ha risposto, vince ${playerNames[turn % 2 == 0 ? 1 : 0]}`);
+			embed.setFooter({ text: `${players[turn % 2]} non ha risposto, vince ${playerNames[turn % 2 == 0 ? 1 : 0]}` });
 		}
 		if(turn == board.length - 1) {
-			embed.setFooter(`${playerNames[0]} e ${playerNames[1]} hanno pareggiato!`);
+			embed.setFooter({ text: `${playerNames[0]} e ${playerNames[1]} hanno pareggiato!` });
 		}
 		else{
-			embed.setFooter(`${playerNames[turn % 2 == 0 ? 1 : 0]} ha vinto!`);
+			embed.setFooter({ text: `${playerNames[turn % 2 == 0 ? 1 : 0]} ha vinto!` });
 		}
 
 		await gameMessage.edit({ embeds : [embed], components: [] });
@@ -97,7 +97,7 @@ const render = async (board : string[], pos : number, gameMessage : Message, pla
 		.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
 		.setDescription(text)
 		.setColor('ORANGE')
-		.setFooter(`È il turno di ${playerNames[turn]}`);
+		.setFooter({ text: `È il turno di ${playerNames[turn]}` });
 	await gameMessage.edit({ embeds: [ embed ], components : actionRows });
 };
 

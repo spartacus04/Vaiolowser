@@ -19,10 +19,10 @@ onSnapshot(col, async snapshot => {
 				await channel.sendTyping();
 				const data = obj.doc.data();
 				const embed = new MessageEmbed()
-					.setAuthor('Nuovo indirizzo IP')
+					.setAuthor({ name: 'Nuovo indirizzo IP' })
 					.setColor('#00FF17')
 					.setTitle(data.game)
-					.setFooter(`Inviato alle ${new Date().getHours()}:${new Date().getMinutes()}`)
+					.setFooter({ text: `Inviato alle ${new Date().getHours()}:${new Date().getMinutes()}` })
 					.setDescription(`${data.ip}:${data.port}`);
 				if(data.image) {
 					const file = new MessageAttachment(Buffer.from(data.image, 'base64'), 'serverImage.png');

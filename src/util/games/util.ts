@@ -29,7 +29,7 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 			.setTitle(`Unisciti a una partita di ${config.gameName}`)
 			.addField('Giocatori', `${config.leaderName}👑`)
 			.setColor('RED')
-			.setFooter(`1/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}`);
+			.setFooter({ text: `1/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}` });
 
 		const actionRow = createButtonsRow(['✅', '❌', '♿']);
 
@@ -62,7 +62,7 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 				.setTitle(`Unisciti a una partita di ${config.gameName}`)
 				.addField('Giocatori', formattedUsers)
 				.setColor('RED')
-				.setFooter(`${playerNames.length}/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}`);
+				.setFooter({ text: `${playerNames.length}/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}` });
 			await message.edit({ embeds : [newEmbed] });
 		};
 

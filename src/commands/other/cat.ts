@@ -25,7 +25,7 @@ const catCommand : Command = {
 				.setColor('#00A2E8')
 				.setTitle(postData.title)
 				.setImage(postData.url)
-				.setFooter(`Postato da u/${postData.author} su r/geologyporn (${postData.ups} upvotes)`);
+				.setFooter({ text: `Postato da u/${postData.author} su r/geologyporn (${postData.ups} upvotes)` });
 
 			await message.channel.send({ embeds : [ embed ] });
 		}
