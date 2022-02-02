@@ -23,7 +23,7 @@ onSnapshot(col, async snapshot => {
 					.setColor('#00FF17')
 					.setTitle(data.game)
 					.setFooter({ text: `Inviato alle ${new Date().getHours()}:${new Date().getMinutes()}` })
-					.setDescription(`${data.ip}:${data.port}`);
+					.setDescription(data.separateIp ? `Ip:${data.ip}\nPorta:${data.port}` : `${data.ip}:${data.port}`);
 				if(data.image) {
 					const file = new MessageAttachment(Buffer.from(data.image, 'base64'), 'serverImage.png');
 					embed.setThumbnail('attachment://serverImage.png');
