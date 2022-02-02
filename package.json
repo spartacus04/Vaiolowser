@@ -23,7 +23,7 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
-    "@firebase/firestore": "^2.4.1",
+    "@firebase/firestore": "^3.4.4",
     "cron": "^1.8.2",
     "discord.js": "^13.6.0",
     "dotenv": "^15.0.0",
