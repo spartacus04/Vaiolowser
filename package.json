@@ -1,7 +1,7 @@
 {
   "name": "vaiolowser",
-  "version": "4.0.0",
-  "description": "",
+  "version": "4.1.0",
+  "description": "Un bot rincoglionito",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --clear src/index.ts",
@@ -11,7 +11,7 @@
     "postinstall": "npm run tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alessandro Sist & Andrea Bonari",
   "license": "ISC",
   "devDependencies": {
     "@types/cron": "^1.7.3",
@@ -23,12 +23,16 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.8.0",
     "@firebase/firestore": "^3.4.4",
     "cron": "^1.8.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
+    "ffmpeg-static": "^4.4.1",
     "firebase": "^9.6.3",
     "flatted": "^3.2.5",
+    "libsodium-wrappers": "^0.7.9",
     "node-fetch": "<3.*",
     "winston": "^3.5.0",
     "winston-daily-rotate-file": "^4.6.0"
