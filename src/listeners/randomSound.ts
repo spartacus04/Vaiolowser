@@ -7,7 +7,7 @@ import { client } from '../config';
 import { logger } from '../logger';
 
 
-const mainGuild = client.guilds.cache.get('');
+const mainGuild = client.guilds.cache.get('711540165012881438');
 
 const channels = Array.from(mainGuild.channels.cache.filter(e => e.type == 'GUILD_VOICE').keys());
 
