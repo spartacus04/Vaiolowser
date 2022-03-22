@@ -32,7 +32,7 @@ const init = async () => {
 
 	logger.info('Fully loaded listeners');
 
-	await client.login(DISCORD_TOKEN);
+	client.login(DISCORD_TOKEN);
 
 	await forEachParallel(defer, async listenerFile => {
 		logger.info(`Loading Deferred Listener ${listenerFile}`);
