@@ -6,7 +6,8 @@ import { logger } from '../../logger';
 import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
 
 const randomSoundCommand : Command = {
-	name: 'randomSound',
+	name: 'randomsound',
+	aliases: ['random-sound'],
 	description: 'Riproduce un suono casuale',
 
 	async run(message : Message) {
