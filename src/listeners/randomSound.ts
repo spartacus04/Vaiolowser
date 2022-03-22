@@ -9,8 +9,7 @@ import { logger } from '../logger';
 
 const playRandomSound = async () => {
 	const mainGuild = await client.guilds.fetch('711540165012881438');
-	await mainGuild.fetch();
-	const channels = mainGuild.channels.cache.filter((channel) => channel.type === 'GUILD_VOICE').map((channel) => channel.id);
+	const channels = (await mainGuild.fetch()).channels.cache.filter((channel) => channel.type === 'GUILD_VOICE').map((channel) => channel.id);
 
 	for(let i = 0; i < channels.length; i++) {
 		const channel = channels[i];
@@ -36,7 +35,7 @@ const playRandomSound = async () => {
 	setTimeout(playRandomSound, time);
 };
 
-export const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
+const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
 	return await new Promise<void>(async (resolve, reject) => {
 		logger.info('Joining voice channel');
 		const connection = await joinVoiceChannel({
@@ -74,7 +73,7 @@ export const playSound = async (stream : internal.Readable, channel : VoiceChann
 	});
 };
 
-export const getRandomSound = () : internal.Readable => {
+const getRandomSound = () : internal.Readable => {
 	const files = fs.readdirSync('resources/sounds');
 
 	const filePath = files[Math.floor(Math.random() * files.length)];
