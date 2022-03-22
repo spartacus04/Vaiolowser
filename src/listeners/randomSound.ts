@@ -7,12 +7,11 @@ import { client } from '../config';
 import { logger } from '../logger';
 
 
-const mainGuild = client.guilds.cache.get('711540165012881438');
-
-const channels = Array.from(mainGuild.channels.cache.filter(e => e.type == 'GUILD_VOICE').keys());
-
 const playRandomSound = async () => {
-	logger.info('Started random sound playback');
+	const mainGuild = await client.guilds.fetch('711540165012881438');
+	await mainGuild.fetch();
+	const channels = mainGuild.channels.cache.filter((channel) => channel.type === 'GUILD_VOICE').map((channel) => channel.id);
+
 	for(let i = 0; i < channels.length; i++) {
 		const channel = channels[i];
 
@@ -38,7 +37,7 @@ const playRandomSound = async () => {
 };
 
 const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
-	await new Promise<void>(async (resolve, reject) => {
+	return await new Promise<void>(async (resolve, reject) => {
 		logger.info('Joining voice channel');
 		const connection = await joinVoiceChannel({
 			channelId: channel.id,
@@ -80,13 +79,11 @@ const getRandomSound = () : internal.Readable => {
 
 	const filePath = files[Math.floor(Math.random() * files.length)];
 
-	return fs.createReadStream(path.resolve(filePath));
+	return fs.createReadStream(path.resolve(path.join('resources/sounds/', filePath)));
 };
 
 const getRandomOffset = () : number => {
-	return Math.floor(Math.random() * (1000 * 60 * 45)) + (1000 * 60 * 15);
+	return Math.floor(Math.random() * (1000 * 60 * 30)) + (1000 * 60 * 15);
 };
 
-const time = getRandomOffset();
-logger.info(`Next random sound playback scheduled to ${time} ms from now`);
-setTimeout(playRandomSound, time);
+playRandomSound();
