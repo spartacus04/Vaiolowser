@@ -31,7 +31,7 @@ const playRandomSound = async () => {
 		}
 	}
 
-	const time = getRandomOffset(1000 * 60 * 60, 10);
+	const time = getRandomOffset();
 	logger.info(`Next random sound playback scheduled to ${time} ms from now`);
 
 	setTimeout(playRandomSound, time);
@@ -83,10 +83,8 @@ const getRandomSound = () : internal.Readable => {
 	return fs.createReadStream(path.resolve(filePath));
 };
 
-const getRandomOffset = (time : number, offset : number) : number => {
-	const percent = time / 100 * offset;
-
-	return Math.random() > 0.5 ? time - percent : time + percent;
+const getRandomOffset = () : number => {
+	return Math.floor(Math.random() * (1000 * 60 * 45)) + (1000 * 60 * 15);
 };
 
 setTimeout(playRandomSound, 1000 * 60 * 60);
