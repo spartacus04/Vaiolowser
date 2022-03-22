@@ -9,6 +9,8 @@ import { logger } from './logger';
 
 client.commands = [];
 
+const defer = ['firebaseListen.ts', 'randomSound.ts'];
+
 const init = async () => {
 	logger.info('Starting...');
 	// Initialize Commands
@@ -25,14 +27,17 @@ const init = async () => {
 
 	await forEachParallel(Listeners, async listenerFile => {
 		logger.info(`Loading Listener ${listenerFile}`);
-		if(listenerFile != 'firebaseListen.ts') await import(`./listeners/${listenerFile}`);
+		if(!defer.includes(listenerFile)) await import(`./listeners/${listenerFile}`);
 	});
 
 	logger.info('Fully loaded listeners');
 
 	await client.login(DISCORD_TOKEN);
 
-	await import('./listeners/firebaseListen');
+	await forEachParallel(defer, async listenerFile => {
+		logger.info(`Loading Deferred Listener ${listenerFile}`);
+		await import(`./listeners/${listenerFile}`);
+	});
 };
 
 init();
