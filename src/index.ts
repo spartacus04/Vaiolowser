@@ -9,7 +9,7 @@ import { logger } from './logger';
 
 client.commands = [];
 
-const defer = ['firebaseListen.ts', 'randomSound.ts'];
+const defer = ['firebaseListen', 'randomSound'];
 
 const init = async () => {
 	logger.info('Starting...');
@@ -26,8 +26,10 @@ const init = async () => {
 	const Listeners = fs.readdirSync(path.join(__dirname, 'listeners'));
 
 	await forEachParallel(Listeners, async listenerFile => {
-		logger.info(`Loading Listener ${listenerFile}`);
-		if(!defer.includes(listenerFile)) await import(`./listeners/${listenerFile}`);
+		if(!defer.includes(listenerFile.split('.')[0])) {
+			logger.info(`Loading Listener ${listenerFile}`);
+			await import(`./listeners/${listenerFile}`);
+		}
 	});
 
 	logger.info('Fully loaded listeners');
