@@ -87,4 +87,6 @@ const getRandomOffset = () : number => {
 	return Math.floor(Math.random() * (1000 * 60 * 45)) + (1000 * 60 * 15);
 };
 
-setTimeout(playRandomSound, 1000 * 60 * 60);
+const time = getRandomOffset();
+logger.info(`Next random sound playback scheduled to ${time} ms from now`);
+setTimeout(playRandomSound, time);
