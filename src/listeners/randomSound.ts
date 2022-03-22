@@ -36,7 +36,7 @@ const playRandomSound = async () => {
 	setTimeout(playRandomSound, time);
 };
 
-const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
+export const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
 	return await new Promise<void>(async (resolve, reject) => {
 		logger.info('Joining voice channel');
 		const connection = await joinVoiceChannel({
@@ -74,7 +74,7 @@ const playSound = async (stream : internal.Readable, channel : VoiceChannel) : P
 	});
 };
 
-const getRandomSound = () : internal.Readable => {
+export const getRandomSound = () : internal.Readable => {
 	const files = fs.readdirSync('resources/sounds');
 
 	const filePath = files[Math.floor(Math.random() * files.length)];
