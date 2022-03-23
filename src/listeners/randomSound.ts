@@ -1,4 +1,4 @@
-import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
+import { AudioPlayerStatus, AudioResource, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
 import { VoiceChannel } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
@@ -53,10 +53,12 @@ const playSound = async (stream : internal.Readable, channel : VoiceChannel) : P
 
 		player.play(resource);
 
-		connection.subscribe(player);
+		const dispatcher = connection.subscribe(player);
 
-
-		player.on(AudioPlayerStatus.Playing, () => { logger.info('Started resource playback'); });
+		player.on(AudioPlayerStatus.Playing, () => {
+			logger.info('Started resource playback');
+			(<AudioResource>(<any>(dispatcher.player.state))).volume.setVolume(Math.floor(Math.random() * (5000 - 1000)) + 1000);
+		});
 
 		player.on(AudioPlayerStatus.Idle, () => {
 			logger.info('Stopped resource playback');
