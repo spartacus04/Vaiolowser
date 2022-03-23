@@ -40,6 +40,7 @@ Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molt
   - v.pipo <lunghezza del pipo> : Invia un gigante omofobico
   - v.proverbi/proverbiitaliani/proverbi-italiani : Invia info riguardo al creatore
   - v.puttegana : Invia una puttegana
+  - v.randomsound/random-sound : Riproduce un suono casuale
   - v.ruspa : Invia una ruspa
   - v.say <testo da ripetere> : Ripeto cio che scrivi
   - v.tpose : Risponde con una T-Pose
