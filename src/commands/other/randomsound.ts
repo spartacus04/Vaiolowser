@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import { logger } from '../../logger';
-import { AudioPlayerStatus, AudioResource, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
+import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
 
 const randomSoundCommand : Command = {
 	name: 'randomsound',
@@ -31,6 +31,7 @@ const randomSoundCommand : Command = {
 
 			logger.info('Creating resources');
 			const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary, inlineVolume: true });
+			resource.volume.setVolume(Math.floor(Math.random() * (5 - 1)) + 1);
 			logger.verbose(resource);
 
 			const player = createAudioPlayer();
@@ -38,11 +39,15 @@ const randomSoundCommand : Command = {
 
 			player.play(resource);
 
-			const dispatcher = connection.subscribe(player);
+			connection.subscribe(player);
 
+
+			let flag = true;
 			player.on(AudioPlayerStatus.Playing, () => {
-				logger.info('Started resource playback');
-				(<AudioResource>(<any>(dispatcher.player.state))).volume.setVolume(Math.floor(Math.random() * (5000 - 1000)) + 1000);
+				if(flag) {
+					logger.info('Started resource playback');
+					flag = false;
+				}
 			});
 
 			player.on(AudioPlayerStatus.Idle, () => {
