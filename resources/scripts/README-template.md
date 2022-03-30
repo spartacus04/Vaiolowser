@@ -7,5 +7,6 @@ Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molt
   - Inviare dei meme da reddit
   - Farti giocare a dei minigiochi
   - Inviare Gif varie
+  - Condividere indirizzi IP per entrare nei server (https://github.com/spartacus04/vaiolowser-ngrok)
 
 # Comandi

@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 
 const pipoCommand : Command = {
 	name: 'pipo',
-	description: 'Invia un gigante omofobico',
+	description: 'Invia un pipo',
 	args: [
 		{
 			key: 'lenght',
