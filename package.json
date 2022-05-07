@@ -1,6 +1,6 @@
 {
   "name": "vaiolowser",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Un bot rincoglionito",
   "main": "dist/index.js",
   "scripts": {
