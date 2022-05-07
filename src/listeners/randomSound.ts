@@ -1,4 +1,4 @@
-import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
+import { AudioPlayerStatus, createAudioPlayer, createAudioResource, DiscordGatewayAdapterCreator, joinVoiceChannel, StreamType } from '@discordjs/voice';
 import { VoiceChannel } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
@@ -6,17 +6,7 @@ import internal from 'stream';
 import { client } from '../config';
 import { logger } from '../logger';
 
-const blacklist : string [] = [];
-
-export const addToBlacklist = (id : string) : void => {
-	blacklist.push(id);
-};
-
-export const removeFromBlacklist = (id : string) : void => {
-	const index = blacklist.indexOf(id);
-	if(index == -1) return;
-	blacklist.splice(index, 1);
-};
+export const blacklist : string [] = [];
 
 const playRandomSound = async () => {
 	const mainGuild = await client.guilds.fetch('711540165012881438');
@@ -54,7 +44,7 @@ const playSound = async (stream : internal.Readable, channel : VoiceChannel) : P
 		const connection = await joinVoiceChannel({
 			channelId: channel.id,
 			guildId: channel.guildId,
-			adapterCreator: channel.guild.voiceAdapterCreator,
+			adapterCreator: channel.guild.voiceAdapterCreator as unknown as DiscordGatewayAdapterCreator,
 		});
 
 		logger.info('Creating resources');

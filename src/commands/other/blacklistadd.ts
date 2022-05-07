@@ -1,7 +1,7 @@
 import { Command } from '../../config';
 import { Message } from 'discord.js';
 import { logger } from '../../logger';
-import { addToBlacklist } from '../../listeners/randomSound';
+import { blacklist } from '../../listeners/randomSound';
 
 const blacklistaddCommand : Command = {
 	name: 'addblacklist',
@@ -17,7 +17,7 @@ const blacklistaddCommand : Command = {
 			return message.reply('Devi essere in un canale plebeo');
 		}
 
-		addToBlacklist(voiceChannel.id);
+		blacklist.push(voiceChannel.id);
 	},
 };
 

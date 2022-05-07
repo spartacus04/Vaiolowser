@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import { logger } from '../../logger';
-import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel, StreamType } from '@discordjs/voice';
+import { AudioPlayerStatus, createAudioPlayer, createAudioResource, DiscordGatewayAdapterCreator, joinVoiceChannel, StreamType } from '@discordjs/voice';
 
 const randomSoundCommand : Command = {
 	name: 'randomsound',
@@ -26,7 +26,7 @@ const randomSoundCommand : Command = {
 			const connection = await joinVoiceChannel({
 				channelId: channel.id,
 				guildId: channel.guildId,
-				adapterCreator: channel.guild.voiceAdapterCreator,
+				adapterCreator: channel.guild.voiceAdapterCreator as unknown as DiscordGatewayAdapterCreator,
 			});
 
 			logger.info('Creating resources');
