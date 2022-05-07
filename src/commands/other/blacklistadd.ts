@@ -18,6 +18,8 @@ const blacklistaddCommand : Command = {
 		}
 
 		blacklist.push(voiceChannel.id);
+
+		return message.reply('Canale aggiunto alla blacklist');
 	},
 };
 

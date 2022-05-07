@@ -20,6 +20,8 @@ const blacklistaddCommand : Command = {
 		const index = blacklist.indexOf(voiceChannel.id);
 		if(index == -1) return;
 		blacklist.splice(index, 1);
+
+		return message.reply('Canale rimosso dalla blacklist');
 	},
 };
 
