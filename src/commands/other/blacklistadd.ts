@@ -17,6 +17,8 @@ const blacklistaddCommand : Command = {
 			return message.reply('Devi essere in un canale plebeo');
 		}
 
+		const index = blacklist.indexOf(voiceChannel.id);
+		if(index != -1) return message.reply('Canale già nella blacklist');
 		blacklist.push(voiceChannel.id);
 
 		return message.reply('Canale aggiunto alla blacklist');
