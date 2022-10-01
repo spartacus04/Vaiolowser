@@ -1,16 +1,18 @@
 import { AudioPlayerStatus, createAudioPlayer, createAudioResource, DiscordGatewayAdapterCreator, joinVoiceChannel, StreamType } from '@discordjs/voice';
-import { VoiceChannel } from 'discord.js';
+import { ChannelType, VoiceChannel } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import internal from 'stream';
-import { client } from '../config';
+import { client, Listener } from '../config';
 import { logger } from '../logger';
 
 export const blacklist : string [] = [];
 
+let timer : NodeJS.Timeout;
+
 const playRandomSound = async () => {
 	const mainGuild = await client.guilds.fetch('711540165012881438');
-	const channels = (await mainGuild.fetch()).channels.cache.filter((channel) => channel.type === 'GUILD_VOICE').map((channel) => channel.id);
+	const channels = (await mainGuild.fetch()).channels.cache.filter((channel) => channel.type === ChannelType.GuildVoice).map((channel) => channel.id);
 
 	for(let i = 0; i < channels.length; i++) {
 		const channel = channels[i];
@@ -35,7 +37,7 @@ const playRandomSound = async () => {
 	const time = getRandomOffset();
 	logger.info(`Next random sound playback scheduled to ${time} ms from now`);
 
-	setTimeout(playRandomSound, time);
+	timer = setTimeout(playRandomSound, time);
 };
 
 const playSound = async (stream : internal.Readable, channel : VoiceChannel) : Promise<void> => {
@@ -96,3 +98,15 @@ const getRandomOffset = () : number => {
 };
 
 playRandomSound();
+
+const randomSoundListener : Listener = {
+	deferred: true,
+
+	register() {
+		playRandomSound();
+	},
+
+	unregister() {
+		clearTimeout(timer);
+	},
+}

@@ -1,4 +1,4 @@
-import { CollectorFilter, Message, MessageComponentInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import { CollectorFilter, Message, MessageComponentInteraction, EmbedBuilder, TextChannel, Colors } from 'discord.js';
 import { createButtonsRow } from '.';
 import { NODE_ENV } from '../../config';
 
@@ -25,10 +25,10 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 		const players : string[] = [ config.leader ];
 		const playerNames : string[] = [ config.leaderName ];
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`Unisciti a una partita di ${config.gameName}`)
-			.addField('Giocatori', `${config.leaderName}👑`)
-			.setColor('RED')
+			.addFields({ name: 'Giocatori', value: `${config.leaderName}👑` })
+			.setColor(Colors.Red)
 			.setFooter({ text: `1/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}` });
 
 		const actionRow = createButtonsRow(['✅', '❌', '♿']);
@@ -58,10 +58,10 @@ export const multiplayerGameConfigurator = async (channel: TextChannel, config :
 				formattedUsers += '\n';
 			});
 
-			const newEmbed = new MessageEmbed()
+			const newEmbed = new EmbedBuilder()
 				.setTitle(`Unisciti a una partita di ${config.gameName}`)
-				.addField('Giocatori', formattedUsers)
-				.setColor('RED')
+				.addFields({ name: 'Giocatori', value: formattedUsers })
+				.setColor(Colors.Red)
 				.setFooter({ text: `${playerNames.length}/${config.maxPlayers}${config.minPlayers < config.maxPlayers ? `, minimo ${config.minPlayers}` : ''}` });
 			await message.edit({ embeds : [newEmbed] });
 		};

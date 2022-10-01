@@ -1,5 +1,5 @@
 import { Command } from '../../config';
-import { Message, MessageEmbed, TextChannel } from 'discord.js';
+import { Message, EmbedBuilder, TextChannel, Colors, Embed } from 'discord.js';
 import { createButtonsRow, isGameChannel, multiplayerGameConfigurator, singleButtonInput } from '../../util';
 
 const connect4Command : Command = {
@@ -20,7 +20,7 @@ const connect4Command : Command = {
 				debug: true,
 			});
 
-		if(players == []) {
+		if(players.length == 0) {
 			return;
 		}
 
@@ -58,11 +58,11 @@ const connect4Command : Command = {
 			text += '\n';
 		}
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
 			.setDescription(text)
 			.setFooter({ text: `È il turno di ${playerNames[turn]}` })
-			.setColor('GREEN');
+			.setColor(Colors.Green);
 
 		if(turn == -1) {
 			embed.setFooter({ text: `${players[turn % 2]} non ha risposto, vince ${playerNames[turn % 2 == 0 ? 1 : 0]}` });
@@ -93,10 +93,10 @@ const render = async (board : string[], pos : number, gameMessage : Message, pla
 	}
 
 
-	const embed = new MessageEmbed()
+	const embed = new EmbedBuilder()
 		.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
 		.setDescription(text)
-		.setColor('ORANGE')
+		.setColor(Colors.Orange)
 		.setFooter({ text: `È il turno di ${playerNames[turn]}` });
 	await gameMessage.edit({ embeds: [ embed ], components : actionRows });
 };

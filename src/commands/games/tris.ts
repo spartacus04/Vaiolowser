@@ -1,6 +1,6 @@
 import { Command } from '../../config';
 
-import { Message, MessageEmbed, TextChannel } from 'discord.js';
+import { Message, EmbedBuilder, TextChannel, Colors } from 'discord.js';
 import { createButtonsRow, isGameChannel, multiplayerGameConfigurator, singleButtonInput } from '../../util';
 
 const trisCommand : Command = {
@@ -56,9 +56,9 @@ const trisCommand : Command = {
 			text += '\n';
 		}
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
-			.setColor('GREEN')
+			.setColor(Colors.Green)
 			.setDescription(text);
 
 		if(turn == -1) {
@@ -91,10 +91,10 @@ const render = async (board : string[], gameMessage : Message, playerNames : str
 		text += '\n';
 	}
 
-	const embed = new MessageEmbed()
+	const embed = new EmbedBuilder()
 		.setTitle(`🎲 ${playerNames[0]} - ${playerNames[1]}`)
 		.setDescription(text)
-		.setColor('ORANGE')
+		.setColor(Colors.Orange)
 		.setFooter({ text: `È il turno di ${playerNames[turn]}` });
 	await gameMessage.edit({ embeds: [ embed ], components : actionRows });
 };

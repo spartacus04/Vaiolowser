@@ -2,16 +2,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import fs from 'fs';
-import { DISCORD_TOKEN, client } from './config';
+import { DISCORD_TOKEN, client, Listener } from './config';
 import path from 'path';
 import { forEachParallel, getGroups, loadGroup } from './util';
 import { logger } from './logger';
 
 client.commands = [];
 
-const defer = ['firebaseListen', 'randomSound'];
-
-const init = async () => {
+(async () => {
 	logger.info('Starting...');
 	// Initialize Commands
 	const groups = getGroups();
@@ -24,24 +22,27 @@ const init = async () => {
 
 	// Initialize Listeners
 	const Listeners = fs.readdirSync(path.join(__dirname, 'listeners'));
+	const deferredListeners: Listener[] = [];
 
 	await forEachParallel(Listeners, async listenerFile => {
-		if(!defer.includes(listenerFile.split('.')[0])) {
-			logger.info(`Loading Listener ${listenerFile}`);
-			await import(`./listeners/${listenerFile}`);
+		logger.info(`Loading listener ${listenerFile}`);
+		const listener : Listener = await import(`./listeners/${listenerFile}`);
+
+		if(listener.deferred) {
+			deferredListeners.push(listener);
+		}
+		else {
+			listener.register();
 		}
 	});
 
 	logger.info('Fully loaded listeners');
 
-	await client.login(DISCORD_TOKEN).then(() => {
-		logger.info('Logged in');
-	});
+	client.login(DISCORD_TOKEN).then(() => {
+		logger.info('Ready!');
 
-	await forEachParallel(defer, async listenerFile => {
-		logger.info(`Loading Deferred Listener ${listenerFile}`);
-		await import(`./listeners/${listenerFile}`);
+		forEachParallel(deferredListeners, async listener => {
+			await listener.register();
+		});
 	});
-};
-
-init();
+})();

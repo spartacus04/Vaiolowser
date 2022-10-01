@@ -1,5 +1,5 @@
 import { Command } from '../../config';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, EmbedBuilder } from 'discord.js';
 import { logger } from '../../logger';
 import fs from 'fs';
 
@@ -15,7 +15,7 @@ const proverbiCommand : Command = {
 
 		logger.info(`sending quote: ${randomQuote.text}`);
 
-		const quoteEmbed = new MessageEmbed()
+		const quoteEmbed = new EmbedBuilder()
 			.setTitle(randomQuote.text)
 			.setColor('#ff003c');
 
