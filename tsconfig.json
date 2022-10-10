@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "ES2019",
+    "module": "commonjs",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,

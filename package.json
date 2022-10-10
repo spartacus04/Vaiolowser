@@ -3,7 +3,6 @@
   "version": "4.3.2",
   "description": "Un bot rincoglionito",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --clear src/index.ts",
     "readme": "ts-node-dev --transpile-only --clear scripts/rewriteReadme.ts",
@@ -39,7 +38,7 @@
     "firebase": "^9.10.0",
     "flatted": "^3.2.7",
     "libsodium-wrappers": "^0.7.10",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "<3.*",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
   }
