@@ -39,8 +39,6 @@ client.commands = [];
 	logger.info('Fully loaded listeners');
 
 	client.login(DISCORD_TOKEN).then(() => {
-		logger.info('Ready!');
-
 		forEachParallel(deferredListeners, async listener => {
 			await listener.register();
 		});

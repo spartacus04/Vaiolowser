@@ -97,8 +97,6 @@ const getRandomOffset = () : number => {
 	return Math.floor(Math.random() * (1000 * 60 * 30)) + (1000 * 60 * 15);
 };
 
-playRandomSound();
-
 const randomSoundListener : Listener = {
 	deferred: true,
 
