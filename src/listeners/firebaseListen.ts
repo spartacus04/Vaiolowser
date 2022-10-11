@@ -32,10 +32,10 @@ const firebaseListener : Listener = {
 						if(data.image) {
 							const file = new AttachmentBuilder(
 								Buffer.from(data.image, 'base64'), {
-									name: 'serverImage.png'
+									name: 'serverImage.png',
 								}
 							);
-							
+
 							embed.setThumbnail('attachment://serverImage.png');
 							await channel.send({ embeds : [ embed ], files: [ file ] });
 						}
@@ -57,6 +57,6 @@ const firebaseListener : Listener = {
 	unregister() {
 		unsub();
 	},
-}
+};
 
 module.exports = firebaseListener;

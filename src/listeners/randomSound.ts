@@ -109,4 +109,6 @@ const randomSoundListener : Listener = {
 	unregister() {
 		clearTimeout(timer);
 	},
-}
+};
+
+module.exports = randomSoundListener;
