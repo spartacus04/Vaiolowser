@@ -22,14 +22,14 @@ client.commands = [];
 
 	// Initialize Listeners
 	const Listeners = fs.readdirSync(path.join(__dirname, 'listeners'));
-	const deferredListeners: Listener[] = [];
+	const deferredListeners = new Map<string, Listener>();
 
 	await forEachParallel(Listeners, async listenerFile => {
 		logger.info(`Loading listener ${listenerFile}`);
 		const listener : Listener = await import(`./listeners/${listenerFile}`);
 
 		if(listener.deferred) {
-			deferredListeners.push(listener);
+			deferredListeners.set(listenerFile, listener);
 		}
 		else {
 			listener.register();
@@ -39,8 +39,11 @@ client.commands = [];
 	logger.info('Fully loaded listeners');
 
 	client.login(DISCORD_TOKEN).then(() => {
-		forEachParallel(deferredListeners, async listener => {
+		deferredListeners.forEach(async (listener, key) => {
+			logger.info(`Loading deferred listener ${key}`);
 			await listener.register();
 		});
+
+		logger.info('Fully loaded deferred listeners');
 	});
 })();
