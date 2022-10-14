@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
+    "target": "ES2017",
     "module": "commonjs",
     "rootDir": "src",
     "strict": true,
@@ -12,11 +12,11 @@
     "strictNullChecks": false,
     "typeRoots": ["./typings", "./node_modules/@types"],
     "lib": [
-      "ES5",
-      "ES2015.Promise",
-      "ES2016.Array.Include",
-      "ES6",
-      "esnext"
+    "ES5",
+    "ES2015.Promise",
+    "ES2016.Array.Include",
+    "ES6",
+    "esnext"
     ]
   },
   "exclude": ["node_modules", "typings", "dist", "scripts"]

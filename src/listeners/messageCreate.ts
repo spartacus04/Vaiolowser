@@ -2,14 +2,12 @@ import { Message } from 'discord.js';
 import { handleCommand } from '../commandHandler';
 import { client, Listener, PREFIX } from '../config';
 
-const messageCreateHandler = () => {
-	client.on('messageCreate', (message : Message) => {
-		if(message.content.toLowerCase().startsWith('vaiolowser rincoglionito')) {
-			return void message.channel.send('no tu');
-		}
+const messageCreateHandler = (message : Message) => {
+	if(message.content.toLowerCase().startsWith('vaiolowser rincoglionito')) {
+		return void message.channel.send('no tu');
+	}
 
-		if(message.content.toLowerCase().startsWith(PREFIX) && !message.author.bot) return handleCommand(message);
-	});
+	if(message.content.toLowerCase().startsWith(PREFIX) && !message.author.bot) return handleCommand(message);
 };
 
 const messageCreateListener : Listener = {
