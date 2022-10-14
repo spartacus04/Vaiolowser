@@ -4,7 +4,7 @@ dotenv.config();
 import fs from 'fs';
 import { DISCORD_TOKEN, client, Listener } from './config';
 import path from 'path';
-import { forEachParallel, getGroups, loadGroup } from './util';
+import { getGroups, loadGroup } from './util';
 import { logger } from './logger';
 
 client.commands = [];
@@ -24,7 +24,7 @@ client.commands = [];
 	const Listeners = fs.readdirSync(path.join(__dirname, 'listeners'));
 	const deferredListeners = new Map<string, Listener>();
 
-	await forEachParallel(Listeners, async listenerFile => {
+	Listeners.forEach(async listenerFile => {
 		logger.info(`Loading listener ${listenerFile}`);
 		const listener : Listener = await import(`./listeners/${listenerFile}`);
 
