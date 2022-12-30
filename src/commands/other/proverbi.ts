@@ -1,7 +1,7 @@
 import { Command } from '../../config';
 import { Message, EmbedBuilder } from 'discord.js';
 import { logger } from '../../logger';
-import fs from 'fs';
+import fs from 'node:fs';
 
 const proverbiCommand : Command = {
 	name: 'proverbi',

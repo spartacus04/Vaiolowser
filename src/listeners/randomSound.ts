@@ -1,8 +1,8 @@
 import { AudioPlayerStatus, createAudioPlayer, createAudioResource, DiscordGatewayAdapterCreator, joinVoiceChannel, StreamType } from '@discordjs/voice';
 import { ChannelType, VoiceChannel } from 'discord.js';
-import fs from 'fs';
-import path from 'path';
-import internal from 'stream';
+import fs from 'node:fs';
+import path from 'node:path';
+import internal from 'node:stream';
 import { client, Listener } from '../config';
 import { logger } from '../logger';
 

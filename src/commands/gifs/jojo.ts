@@ -1,6 +1,6 @@
 import { Command } from '../../config';
 import { Message } from 'discord.js';
-import fs from 'fs';
+import fs from 'node:fs';
 import { logger } from '../../logger';
 
 const jojoCommand : Command = {

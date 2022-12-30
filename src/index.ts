@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import fs from 'fs';
+import fs from 'node:fs';
 import { DISCORD_TOKEN, client, Listener } from './config';
-import path from 'path';
+import path from 'node:path';
 import { getGroups, loadGroup } from './util';
 import { logger } from './logger';
 
