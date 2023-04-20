@@ -9,3 +9,5 @@ services:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
     command: npm run dev
+    dns: 
+      - '8.8.8.8'

@@ -1,5 +1,5 @@
 import { AttachmentBuilder, EmbedBuilder, TextChannel } from 'discord.js';
-import { collection, getFirestore, onSnapshot, deleteDoc, doc, Unsubscribe } from 'firebase/firestore';
+import { collection, getFirestore, onSnapshot, deleteDoc, doc, Unsubscribe } from '@firebase/firestore';
 import { client, Listener, getApp } from '@commandHandler';
 
 let unsub: Unsubscribe;

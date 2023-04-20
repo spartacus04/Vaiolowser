@@ -28,7 +28,6 @@ Vaiolowser è il terzo bot del server discord del prosciutthanos, può fare molt
   - m.carcere/jail/gulag <utente da carcerare> : Incarcera o scarcera un membro del server
   - m.eval/evaluate <codice da eseguire> : Esegue javascript
   - m.help : Invia dei comandi di aiuto
-  - m.info : Invia informazioni su Vaiolowser
   - m.kick/kick-member/throw <utente da espellere> <motivo dell'espulsione> : Espelle un membro del server
   - m.ping : Invia il ping del bot
   - m.prune/delete-messages/bulk-delete <numero di messaggi> : Elimina molteplici messaggi in seguenza
