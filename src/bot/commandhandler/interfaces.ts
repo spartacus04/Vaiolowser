@@ -1,6 +1,5 @@
 import { Message, GatewayIntentBits, Partials } from 'discord.js';
 import { eClient } from './eclient';
-import { music, musicGuild } from './musicHandler';
 
 export interface argument {
 	key: string;
@@ -29,10 +28,6 @@ export interface Listener {
 	register: () => void;
 	unregister?: () => void;
 }
-
-export const getMusicHandler = (id: string): musicGuild => {
-	return music.get(id);
-};
 
 export const client = new eClient({
 	intents: [

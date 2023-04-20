@@ -1,6 +1,6 @@
-import { Message } from "discord.js";
-import { Command } from "@commandHandler";
-import { redditCommand } from "@botcommands/shared";
+import { Message } from 'discord.js';
+import { Command } from '@commandHandler';
+import { redditCommand } from '@botcommands/shared';
 
 const memeCommand : Command = {
 	name: 'meme',

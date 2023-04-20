@@ -1,4 +1,4 @@
-import { Command } from '../../config';
+import { Command } from '@commandHandler';
 import { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 const whoMadeMeCommand : Command = {

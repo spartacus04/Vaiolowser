@@ -7,7 +7,7 @@ const archeokokoCommand : Command = {
 	aliases: ['archeokoko'],
 	description: 'Invia una gif di archeokoko',
 
-	async run(message : Message) { fileCommand(message, 'resources/gifs/archeokoko.gif') },
+	async run(message : Message) { fileCommand(message, 'resources/gifs/archeokoko.gif'); },
 };
 
 module.exports = archeokokoCommand;

@@ -7,7 +7,7 @@ const bigchungusCommand : Command = {
 	aliases: ['big-chungus'],
 	description: 'Invia un big chungus',
 
-	async run(message : Message) { fileCommand(message, 'resources/gifs/bigchungus.gif') },
+	async run(message : Message) { fileCommand(message, 'resources/gifs/bigchungus.gif'); },
 };
 
 module.exports = bigchungusCommand;

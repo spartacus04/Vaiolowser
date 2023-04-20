@@ -16,31 +16,45 @@ const trisCommand : Command = {
 				leaderName: message.author.username,
 				minPlayers: 2,
 				maxPlayers: 2,
-				debug: false,
 			});
+
 		if(players.length == 0) {
 			return;
 		}
 
-		const playerNames = [message.guild.members.cache.find((member) => member.id == players[0]).displayName, message.guild.members.cache.find((member) => member.id == players[1]).displayName];
+		const playerNames = players.map((player) => message.guild.members.cache.find((member) => member.id == player).displayName);
 
 		const board = ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜'];
 		let turn = 0;
+		let isTie = false;
 
 		await render(board, gameMessage, playerNames, turn % 2);
 
 		const gameLoop = async () => {
+			console.log(isWin(board, '❌'));
+			console.log(isWin(board, '🟡'));
+			if(isWin(board, turn % 2 == 0 ? '🟡' : '❌')) {
+				return;
+			}
+
+			if(turn == 9) {
+				isTie = true;
+				return;
+			}
+
 			const input = +(await singleButtonInput(gameMessage, players[turn % 2]));
+
 			if(input < 0) {
 				turn = -1;
 				return;
 			}
+
 			board[input] = turn % 2 == 0 ? '❌' : '🟡';
-			await render(board, gameMessage, playerNames, turn % 2 == 0 ? 1 : 0);
-			if(!isWin(board, turn % 2 == 0 ? '❌' : '🟡') && turn < 8) {
-				turn++;
-				await gameLoop();
-			}
+
+			await render(board, gameMessage, playerNames, (turn + 1) % 2);
+
+			turn++;
+			await gameLoop();
 		};
 
 		await gameLoop();
@@ -59,11 +73,11 @@ const trisCommand : Command = {
 			.setColor(Colors.Green)
 			.setDescription(text);
 
-		if(turn == -1) {
-			embed.setFooter({ text: `${players[turn % 2]} non ha risposto, vince ${playerNames[turn % 2 == 0 ? 1 : 0]}` });
-		}
-		if(turn == 8) {
+		if(isTie) {
 			embed.setFooter({ text: `${playerNames[0]} e ${playerNames[1]} hanno pareggiato!` });
+		}
+		else if(turn == -1) {
+			embed.setFooter({ text: `${playerNames[(turn + 2) % 2]} non ha risposto, vince ${playerNames[(turn + 1 % 2)]}` });
 		}
 		else{
 			embed.setFooter({ text: `${playerNames[turn % 2 == 0 ? 1 : 0]} ha vinto!` });

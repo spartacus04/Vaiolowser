@@ -1,7 +1,7 @@
-import { Command } from '../../config';
-import { Message } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { Message } from 'discord.js';
+import { Command } from '@commandHandler';
 
 const tposeCommand : Command = {
 	name: 'tpose',

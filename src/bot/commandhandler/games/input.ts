@@ -8,6 +8,7 @@ export const singleButtonInput = (message : Message, ...allowedUsers : string[])
 		const collector = message.channel.createMessageComponentCollector({ filter, message, max: 1, time: 15000 });
 
 		collector.on('collect', i => {
+			i.deferUpdate();
 			resolve(i.customId);
 		});
 

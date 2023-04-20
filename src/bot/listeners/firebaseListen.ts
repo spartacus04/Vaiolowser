@@ -30,7 +30,7 @@ const firebaseListener : Listener = {
 							.setTitle(data.game)
 							.setFooter({ text: `Inviato alle ${new Date().getHours()}:${new Date().getMinutes()}` })
 							.setDescription(data.separateIp ? `Ip : ${data.ip}\nPorta : ${data.port}` : `${data.ip}:${data.port}`);
-						
+
 						if(data.image) {
 							const file = new AttachmentBuilder(
 								Buffer.from(data.image, 'base64'), {
@@ -39,7 +39,7 @@ const firebaseListener : Listener = {
 							);
 
 							embed.setThumbnail('attachment://serverImage.png');
-							
+
 							await channel.send({ embeds : [ embed ], files: [ file ] });
 						}
 						else{

@@ -7,7 +7,7 @@ const catCommand : Command = {
 	aliases: ['catpic', 'rock'],
 	description: 'Risponde con un immagine di un sasso',
 
-	async run(message : Message) { redditCommand(message, ['geologyporn']); }
+	async run(message : Message) { redditCommand(message, ['geologyporn']); },
 };
 
 module.exports = catCommand;

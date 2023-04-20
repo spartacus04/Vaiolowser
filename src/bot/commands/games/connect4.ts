@@ -16,14 +16,13 @@ const connect4Command : Command = {
 				leaderName: message.author.username,
 				minPlayers: 2,
 				maxPlayers: 2,
-				debug: true,
 			});
 
 		if(players.length == 0) {
 			return;
 		}
 
-		const playerNames = [message.guild.members.cache.find((member) => member.id == players[0]).displayName, message.guild.members.cache.find((member) => member.id == players[1]).displayName];
+		const playerNames = players.map((player) => message.guild.members.cache.find((member) => member.id == player).displayName);
 
 		const board = Array.from('⬜'.repeat(6 * 7));
 		let turn = 0;

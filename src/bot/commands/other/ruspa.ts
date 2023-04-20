@@ -6,7 +6,7 @@ const ruspaCommand : Command = {
 	name: 'ruspa',
 	description: 'Invia una ruspa',
 
-	async run(message : Message) { fileCommand(message, 'resources/images/ruspa.jpeg') },
+	async run(message : Message) { fileCommand(message, 'resources/images/ruspa.jpeg'); },
 };
 
 module.exports = ruspaCommand;

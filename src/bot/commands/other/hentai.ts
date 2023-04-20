@@ -7,7 +7,7 @@ const hentaiCommand : Command = {
 	aliases: ['dio'],
 	description: 'Invia un hentai',
 
-	async run(message : Message) { fileCommand(message, 'resources/images/dio.jpeg') },
+	async run(message : Message) { fileCommand(message, 'resources/images/dio.jpeg'); },
 };
 
 module.exports = hentaiCommand;

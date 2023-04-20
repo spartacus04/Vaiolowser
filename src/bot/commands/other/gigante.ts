@@ -7,7 +7,7 @@ const giganteCommand : Command = {
 	aliases: ['giganteomofobico', 'gigante-omofobico'],
 	description: 'Invia un gigante omofobico',
 
-	async run(message : Message) { fileCommand(message, 'resources/images/gigante.jpeg') },
+	async run(message : Message) { fileCommand(message, 'resources/images/gigante.jpeg'); },
 };
 
 module.exports = giganteCommand;

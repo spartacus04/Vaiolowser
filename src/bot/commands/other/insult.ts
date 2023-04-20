@@ -1,6 +1,6 @@
-import { Message, EmbedBuilder } from "discord.js";
-import { logger } from "@logger";
-import { Command } from "@commandHandler";
+import { Message, EmbedBuilder } from 'discord.js';
+import { logger } from '@logger';
+import { Command } from '@commandHandler';
 
 const insultCommand : Command = {
 	name: 'insult',

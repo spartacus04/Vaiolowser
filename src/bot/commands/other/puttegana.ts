@@ -6,7 +6,7 @@ const putteganaCommand : Command = {
 	name: 'puttegana',
 	description: 'Invia una puttegana',
 
-	async run(message : Message) { fileCommand(message, 'resources/images/puttegana.jpeg') },
+	async run(message : Message) { fileCommand(message, 'resources/images/puttegana.jpeg'); },
 };
 
 module.exports = putteganaCommand;

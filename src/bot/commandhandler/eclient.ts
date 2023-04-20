@@ -4,7 +4,6 @@ import { Client } from 'discord.js';
 import { logger } from '@logger';
 import { forEachParallel } from '../util';
 import { Command, Listener } from './interfaces';
-import { music, musicGuild } from './musicHandler';
 import { isDevelopment } from '@config';
 
 export class eClient extends Client {
@@ -122,10 +121,6 @@ export class eClient extends Client {
 		else {
 			listener.register();
 		}
-	};
-
-	getMusicHandler = (id: string): musicGuild => {
-		return music.get(id);
 	};
 
 	getCommand = (name: string): Command => {
