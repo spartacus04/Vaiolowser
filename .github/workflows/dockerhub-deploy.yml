@@ -26,4 +26,4 @@ jobs:
         with:
           platforms: linux/arm64
           push: true
-          tags: spartacus04/eboluigi:latest
+          tags: spartacus04/vaiolowser:latest
