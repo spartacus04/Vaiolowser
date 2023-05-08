@@ -50,8 +50,7 @@ const playSound = async (stream : internal.Readable, channel : VoiceChannel) : P
 		});
 
 		logger.info('Creating resources');
-		const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary, inlineVolume: true });
-		resource.volume.setVolume(Math.floor(Math.random() * (5 - 1)) + 1);
+		const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary });
 		logger.verbose(resource);
 
 		const player = createAudioPlayer();
