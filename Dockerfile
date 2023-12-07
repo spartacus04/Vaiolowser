@@ -13,7 +13,7 @@ RUN apk del .gyp
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
 # Run prod
 FROM node:20-alpine as prod
